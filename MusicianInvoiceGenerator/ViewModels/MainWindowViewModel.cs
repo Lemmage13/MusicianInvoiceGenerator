@@ -1,17 +1,20 @@
-﻿using System;
+﻿using MusicianInvoiceGenerator.Models;
+using MusicianInvoiceGenerator.ViewModels.Commands;
+using MusicianInvoiceGenerator.Views;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace MusicianInvoiceGenerator.ViewModels
 {
     class MainWindowViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
-
         private ContactEntryViewModel _senderContact;
         public ContactEntryViewModel SenderContact
         {
@@ -79,7 +82,6 @@ namespace MusicianInvoiceGenerator.ViewModels
                 OnPropertyChanged(nameof(DueDate));
             }
         }
-
         public MainWindowViewModel()
         {
             _senderContact = new ContactEntryViewModel();
@@ -89,10 +91,24 @@ namespace MusicianInvoiceGenerator.ViewModels
             _invoiceDate = DateTime.Now;
             _dueDate= InvoiceDate.AddDays(30);
         }
-
-        private void GenerateInvoice()
+        private ICommand _newInvoice;
+        public ICommand NewInvoice
         {
-
+            get
+            {
+                if( _newInvoice == null)
+                {
+                    _newInvoice = new RelayCommand(param => OpenPreviewWindow());
+                }
+                return _newInvoice;
+            }
+        }
+        private void OpenPreviewWindow()
+        {
+            InvoicePreviewViewModel prevVM = new InvoicePreviewViewModel(new Invoice(SenderContact.MakeModel(), BankDetails.MakeModel(), RecipientContact.MakeModel(), GigEntry.MakeModel(), InvoiceDate, DueDate));
+            InvoicePreviewWindow prevWindow = new InvoicePreviewWindow();
+            prevWindow.DataContext = prevVM;
+            prevWindow.Show();
         }
 
         protected void OnPropertyChanged([CallerMemberName] string? name = null)

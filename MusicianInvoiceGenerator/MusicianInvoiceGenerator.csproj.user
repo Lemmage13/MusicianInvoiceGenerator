@@ -16,7 +16,13 @@
     <Compile Update="Views\Controls\GigDetailEntryControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Controls\GigDetailTextControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Controls\InvoicePreviewControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\InvoicePreviewWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -30,7 +36,13 @@
     <Page Update="Views\Controls\GigDetailEntryControl.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\Controls\GigDetailTextControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\Controls\InvoicePreviewControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\InvoicePreviewWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\MainWindow.xaml">

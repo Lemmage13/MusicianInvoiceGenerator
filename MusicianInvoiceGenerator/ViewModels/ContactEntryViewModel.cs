@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using MusicianInvoiceGenerator.Models;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace MusicianInvoiceGenerator.ViewModels
@@ -76,6 +77,10 @@ namespace MusicianInvoiceGenerator.ViewModels
             _line2 = string.Empty;
             _town = string.Empty;
             _postCode = string.Empty;
+        }
+        public ContactDetails MakeModel()
+        {
+            return new ContactDetails(Name, PhoneNumber, Line1, Line2, Town, PostCode);
         }
         protected void OnPropertyChanged([CallerMemberName] string? name = null)
         {

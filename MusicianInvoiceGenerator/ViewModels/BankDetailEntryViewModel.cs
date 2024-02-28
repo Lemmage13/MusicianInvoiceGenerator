@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using MusicianInvoiceGenerator.Models;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Web;
 
@@ -28,11 +29,14 @@ namespace MusicianInvoiceGenerator.ViewModels
             OnPropertyChanged(nameof(AccountNumber));
             }
         }
-
         public BankDetailEntryViewModel()
         {
             _sortCode = string.Empty;
             _accountNumber = string.Empty;
+        }
+        public BankDetails MakeModel()
+        {
+            return new BankDetails(SortCode, AccountNumber);
         }
         protected void OnPropertyChanged([CallerMemberName] string? name = null)
         {

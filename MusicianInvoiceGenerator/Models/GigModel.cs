@@ -8,13 +8,13 @@ namespace MusicianInvoiceGenerator.Models
 {
     public class GigModel
     {
-        public double Rate;
         public string Details;
+        public double Rate;
 
-        public GigModel()
+        public GigModel(string details, double rate)
         {
-            Rate = 0;
-            Details = string.Empty;
+            Details = details;
+            Rate = rate;
         }
     }
 }

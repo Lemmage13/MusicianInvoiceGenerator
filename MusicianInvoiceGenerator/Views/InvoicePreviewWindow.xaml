@@ -1,0 +1,24 @@
+﻿<Window x:Class="MusicianInvoiceGenerator.Views.InvoicePreviewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MusicianInvoiceGenerator.Views.Controls"
+        xmlns:vm="clr-namespace:MusicianInvoiceGenerator.ViewModels"
+        xmlns:uc="clr-namespace:MusicianInvoiceGenerator.Views.Controls"
+        mc:Ignorable="d"
+        Title="InvoicePreviewWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <uc:InvoicePreviewControl Grid.Column="1" Grid.Row="1"/>
+    </Grid>
+</Window>

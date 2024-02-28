@@ -23,7 +23,7 @@ namespace MusicianInvoiceGenerator.ViewModels
 
         public GigEntryViewModel()
         {
-            Gigs = new ObservableCollection<GigTxt> { new GigTxt( new GigModel()) };
+            Gigs = new ObservableCollection<GigTxt> { new GigTxt() };
         }
         private ICommand _addGig;
         public ICommand AddGig
@@ -39,9 +39,17 @@ namespace MusicianInvoiceGenerator.ViewModels
         }
         private void NewGig()
         {
-            Gigs.Add(new GigTxt(new GigModel()));
+            Gigs.Add(new GigTxt());
         }
-
+        public List<GigModel> MakeModel()
+        {
+            List<GigModel> model = new List<GigModel>();
+            foreach(GigTxt gig in Gigs)
+            {
+                model.Add(new GigModel(gig.Details, Convert.ToDouble(gig.Rate)));
+            }
+            return model;
+        }
         protected void OnPropertyChanged([CallerMemberName] string? name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
@@ -71,13 +79,10 @@ namespace MusicianInvoiceGenerator.ViewModels
                     OnPropertyChanged(nameof(Rate));
                 }
             }
-            private GigModel GigModel;
-
-            public GigTxt(GigModel model)
+            public GigTxt()
             {
-                GigModel = model;
-                _details = GigModel.Details;
-                _rate = GigModel.Rate.ToString();
+                _details = String.Empty;
+                _rate = String.Empty;
             }
             protected void OnPropertyChanged([CallerMemberName] string? name = null)
             {
