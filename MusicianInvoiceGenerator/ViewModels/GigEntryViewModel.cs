@@ -82,7 +82,7 @@ namespace MusicianInvoiceGenerator.ViewModels
             public GigTxt()
             {
                 _details = String.Empty;
-                _rate = String.Empty;
+                _rate = "0";
             }
             protected void OnPropertyChanged([CallerMemberName] string? name = null)
             {
