@@ -30,5 +30,5 @@ C:\Users\matth\source\repos\MusicianInvoiceGenerator\MusicianInvoiceGenerator\ob
 C:\Users\matth\source\repos\MusicianInvoiceGenerator\MusicianInvoiceGenerator\obj\Debug\net6.0-windows\MusicianInvoiceGenerator.pdb
 C:\Users\matth\source\repos\MusicianInvoiceGenerator\MusicianInvoiceGenerator\obj\Debug\net6.0-windows\MusicianInvoiceGenerator.genruntimeconfig.cache
 C:\Users\matth\source\repos\MusicianInvoiceGenerator\MusicianInvoiceGenerator\obj\Debug\net6.0-windows\ref\MusicianInvoiceGenerator.dll
-C:\Users\matth\source\repos\MusicianInvoiceGenerator\MusicianInvoiceGenerator\obj\Debug\net6.0-windows\Views\Controls\GigDisplay.g.cs
-C:\Users\matth\source\repos\MusicianInvoiceGenerator\MusicianInvoiceGenerator\obj\Debug\net6.0-windows\Views\Controls\GigDisplay.baml
+C:\Users\matth\source\repos\MusicianInvoiceGenerator\MusicianInvoiceGenerator\obj\Debug\net6.0-windows\Views\Controls\GigDisplayTable.g.cs
+C:\Users\matth\source\repos\MusicianInvoiceGenerator\MusicianInvoiceGenerator\obj\Debug\net6.0-windows\Views\Controls\GigDisplayTable.baml

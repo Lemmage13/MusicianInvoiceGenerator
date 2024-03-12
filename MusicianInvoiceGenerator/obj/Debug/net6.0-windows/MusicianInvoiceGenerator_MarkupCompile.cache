@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 C:\Users\matth\source\repos\MusicianInvoiceGenerator\MusicianInvoiceGenerator\App.xaml
-7125055852
+7848420682
 
-20-659153639
+20-1652217151
 194-428966090
-Views\Controls\BankDetailEntryControl.xaml;Views\Controls\ContactEntryControl.xaml;Views\Controls\GigDetailEntryControl.xaml;Views\Controls\GigDisplay.xaml;Views\Controls\InvoicePreviewControl.xaml;Views\InvoicePreviewWindow.xaml;Views\MainWindow.xaml;
+Views\Controls\BankDetailEntryControl.xaml;Views\Controls\ContactEntryControl.xaml;Views\Controls\GigDetailEntryControl.xaml;Views\Controls\GigDisplayTable.xaml;Views\Controls\InvoicePreviewControl.xaml;Views\InvoicePreviewWindow.xaml;Views\MainWindow.xaml;
 
 False
 

@@ -7,6 +7,11 @@
              xmlns:uc="clr-namespace:MusicianInvoiceGenerator.Views.Controls"
              mc:Ignorable="d" 
              Background="White">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="2,2,2,2"/>
+        </Style>
+    </UserControl.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -15,8 +20,9 @@
         </Grid.RowDefinitions>
         <Grid VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="6*"/>
+                <ColumnDefinition Width="4*"/>
             </Grid.ColumnDefinitions>
             <Grid>
                 <Grid.RowDefinitions>
@@ -25,15 +31,17 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <!--ADDRESS BLOCK - may need to be made into a control/datatemplate - potentially to change based on types of contact info available-->
-                <TextBlock Text="{Binding Path=RecipientName}"/>
-                <TextBlock Text="{Binding Path=RecipientL1}" Grid.Row="1"/>
-                <TextBlock Text="{Binding Path=RecipientL2}" Grid.Row="2"/>
-                <TextBlock Text="{Binding Path=RecipientTown}" Grid.Row="3"/>
-                <TextBlock Text="{Binding Path=RecipientPostcode}" Grid.Row="4"/>
+                <TextBlock Text="Bill To:"/>
+                <TextBlock Text="{Binding Path=RecipientName}" Grid.Row="1"/>
+                <TextBlock Text="{Binding Path=RecipientL1}" Grid.Row="2"/>
+                <TextBlock Text="{Binding Path=RecipientL2}" Grid.Row="3"/>
+                <TextBlock Text="{Binding Path=RecipientTown}" Grid.Row="4"/>
+                <TextBlock Text="{Binding Path=RecipientPostcode}" Grid.Row="5"/>
             </Grid>
-            <Grid Grid.Column="1">
+            <Grid Grid.Column="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -48,43 +56,14 @@
             </Grid>
         </Grid>
         <Grid Grid.Row="1">
-            <!--GIG DETAILS BLOCK - will bind to observableCollection of GigModel Objects-->
-            <ItemsControl ItemsSource="{Binding Path=GigList}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <uc:GigDisplay/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-                <ItemsControl.Template>
-                    <ControlTemplate TargetType="ItemsControl">
-                        <StackPanel>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Text="Details"/>
-                                <TextBlock Text="Rate" Grid.Column="1"/>
-                            </Grid>
-                            <ItemsPresenter/>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Text="Total:" Grid.Column="1"/>
-                            </Grid>
-                        </StackPanel>
-                    </ControlTemplate>
-                </ItemsControl.Template>
-            </ItemsControl>
-            
+            <!--GIG DETAILS BLOCK - will bind to observableCollection of GigTxt Objects-->
+            <local:GigDisplayTable HorizontalAlignment="Center" Margin="20"/>
         </Grid>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="6*"/>
+                <ColumnDefinition Width="4*"/>
             </Grid.ColumnDefinitions>
             <Grid>
                 <Grid.RowDefinitions>
@@ -105,17 +84,18 @@
                 <TextBlock Text="{Binding Path=SenderPostcode}" Grid.Row="6"/>
                 
             </Grid>
-            <Grid Grid.Column="1">
+            <Grid Grid.Column="2">
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <TextBlock Text="Pay To:"/>
-                <TextBlock Grid.Row="1" Text="{Binding Path=SenderName}"/>
-                <TextBlock Grid.Row="2" Text="{Binding Path=SortCode}"/>
-                <TextBlock Grid.Row="3" Text="{Binding Path=AccountNumber}"/>
+                <TextBlock Grid.Row="1" Text="{Binding Path=SenderName}" HorizontalAlignment="Right"/>
+                <TextBlock Grid.Row="2" Text="{Binding Path=SortCode}" HorizontalAlignment="Right"/>
+                <TextBlock Grid.Row="3" Text="{Binding Path=AccountNumber}" HorizontalAlignment="Right"/>
             </Grid>
 
         </Grid>

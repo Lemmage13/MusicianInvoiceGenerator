@@ -16,7 +16,7 @@
     <Compile Update="Views\Controls\GigDetailEntryControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Controls\GigDisplay.xaml.cs">
+    <Compile Update="Views\Controls\GigDisplayTable.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\Controls\InvoicePreviewControl.xaml.cs">
@@ -36,7 +36,7 @@
     <Page Update="Views\Controls\GigDetailEntryControl.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\Controls\GigDisplay.xaml">
+    <Page Update="Views\Controls\GigDisplayTable.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Controls\InvoicePreviewControl.xaml">
