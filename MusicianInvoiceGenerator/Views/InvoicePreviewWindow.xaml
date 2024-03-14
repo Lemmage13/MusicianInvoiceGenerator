@@ -20,5 +20,6 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <uc:InvoicePreviewControl Grid.Column="1" Grid.Row="1"/>
+        <Button Content="Generate Invoice" Grid.Column="1" Grid.Row="3" Margin="5,5,5,5" Command="{Binding GenerateInvoice}"/>
     </Grid>
 </Window>

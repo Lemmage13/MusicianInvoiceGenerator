@@ -2,6 +2,14 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Collections.Generic;
+using System.Windows.Media;
+using MusicianInvoiceGenerator.Views.Controls;
+using System.Windows.Documents;
+using System.Windows.Controls;
+using System.Windows;
+using MusicianInvoiceGenerator.Views;
+using System.Windows.Input;
+using MusicianInvoiceGenerator.ViewModels.Commands;
 
 namespace MusicianInvoiceGenerator.ViewModels
 {
@@ -342,7 +350,44 @@ namespace MusicianInvoiceGenerator.ViewModels
                 OnPropertyChanged(nameof(RateTotal));
             }
         }
+        private ICommand _generateInvoice;
+        public ICommand GenerateInvoice
+        {
+            get
+            {
+                if (_generateInvoice == null)
+                {
+                    _generateInvoice = new RelayCommand(param => CreateInvoice());
+                }
+                return _generateInvoice;
+            }
+        }
+        #region Methods
+        private void CreateInvoice()
+        {
+            //Save invoice to database <<TBA>>
+            FixedDocument invoice = PreviewToXPS();
 
+            //open doc viewer window for generated invoice
+            DocViewWindow DocView = new DocViewWindow();
+            DocView.DocViewer.Document = invoice;
+            DocView.Show();
+        }
+        private FixedDocument PreviewToXPS() { 
+            InvoicePreviewControl control = new InvoicePreviewControl();
+            control.DataContext = this;
+
+            FixedDocument fixedDoc = new FixedDocument();
+            PageContent pgContent = new PageContent();
+            FixedPage fixedPg = new FixedPage();
+
+            fixedPg.Children.Add(control);
+            pgContent.Child = fixedPg;
+            fixedDoc.Pages.Add(pgContent);
+
+            return fixedDoc;
+        }
+        #endregion
         protected void OnPropertyChanged([CallerMemberName] string? name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));

@@ -22,6 +22,9 @@
     <Compile Update="Views\Controls\InvoicePreviewControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\DocViewWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\InvoicePreviewWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -40,6 +43,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Controls\InvoicePreviewControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\DocViewWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\InvoicePreviewWindow.xaml">
