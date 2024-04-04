@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\matth\\source\\repos\\MusicianInvoiceGenerator\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{28006BE6-5920-47B0-B218-9F5539F4EA85}|MusicianInvoiceGenerator\\MusicianInvoiceGenerator.csproj|c:\\users\\matth\\source\\repos\\musicianinvoicegenerator\\musicianinvoicegenerator\\views\\debugwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{28006BE6-5920-47B0-B218-9F5539F4EA85}|MusicianInvoiceGenerator\\MusicianInvoiceGenerator.csproj|solutionrelative:musicianinvoicegenerator\\views\\debugwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{28006BE6-5920-47B0-B218-9F5539F4EA85}|MusicianInvoiceGenerator\\MusicianInvoiceGenerator.csproj|c:\\users\\matth\\source\\repos\\musicianinvoicegenerator\\musicianinvoicegenerator\\views\\debugwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{28006BE6-5920-47B0-B218-9F5539F4EA85}|MusicianInvoiceGenerator\\MusicianInvoiceGenerator.csproj|solutionrelative:musicianinvoicegenerator\\views\\debugwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28006BE6-5920-47B0-B218-9F5539F4EA85}|MusicianInvoiceGenerator\\MusicianInvoiceGenerator.csproj|c:\\users\\matth\\source\\repos\\musicianinvoicegenerator\\musicianinvoicegenerator\\views\\debugwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{28006BE6-5920-47B0-B218-9F5539F4EA85}|MusicianInvoiceGenerator\\MusicianInvoiceGenerator.csproj|solutionrelative:musicianinvoicegenerator\\views\\debugwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{28006BE6-5920-47B0-B218-9F5539F4EA85}|MusicianInvoiceGenerator\\MusicianInvoiceGenerator.csproj|c:\\users\\matth\\source\\repos\\musicianinvoicegenerator\\musicianinvoicegenerator\\viewmodels\\mainwindowviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -62,24 +62,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "DebugWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\matth\\source\\repos\\MusicianInvoiceGenerator\\MusicianInvoiceGenerator\\Views\\DebugWindow.xaml.cs",
               "RelativeDocumentMoniker": "MusicianInvoiceGenerator\\Views\\DebugWindow.xaml.cs",
               "ToolTip": "C:\\Users\\matth\\source\\repos\\MusicianInvoiceGenerator\\MusicianInvoiceGenerator\\Views\\DebugWindow.xaml.cs",
               "RelativeToolTip": "MusicianInvoiceGenerator\\Views\\DebugWindow.xaml.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAAArwCAAAAAWAAAA",
+              "ViewState": "AQIAAAkAAAAAAAAAAAArwBQAAAApAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-04T10:59:31.047Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "DebugWindow.xaml",
               "DocumentMoniker": "C:\\Users\\matth\\source\\repos\\MusicianInvoiceGenerator\\MusicianInvoiceGenerator\\Views\\DebugWindow.xaml",
               "RelativeDocumentMoniker": "MusicianInvoiceGenerator\\Views\\DebugWindow.xaml",
@@ -123,7 +123,8 @@
               "ToolTip": "C:\\Users\\matth\\source\\repos\\MusicianInvoiceGenerator\\MusicianInvoiceGenerator\\Views\\MainWindow.xaml",
               "RelativeToolTip": "MusicianInvoiceGenerator\\Views\\MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-02-25T20:22:50.109Z"
+              "WhenOpened": "2024-02-25T20:22:50.109Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -146,7 +147,8 @@
               "ToolTip": "C:\\Users\\matth\\source\\repos\\MusicianInvoiceGenerator\\MusicianInvoiceGenerator\\Views\\Controls\\GigDetailEntryControl.xaml",
               "RelativeToolTip": "MusicianInvoiceGenerator\\Views\\Controls\\GigDetailEntryControl.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-03-06T09:47:07.993Z"
+              "WhenOpened": "2024-03-06T09:47:07.993Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -158,7 +160,8 @@
               "RelativeToolTip": "MusicianInvoiceGenerator\\MusicianInvoiceGenerator.csproj",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-03-04T13:15:15.814Z"
+              "WhenOpened": "2024-03-04T13:15:15.814Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -168,9 +171,10 @@
               "RelativeDocumentMoniker": "MusicianInvoiceGenerator\\ViewModels\\GigEntryViewModel.cs",
               "ToolTip": "C:\\Users\\matth\\source\\repos\\MusicianInvoiceGenerator\\MusicianInvoiceGenerator\\ViewModels\\GigEntryViewModel.cs",
               "RelativeToolTip": "MusicianInvoiceGenerator\\ViewModels\\GigEntryViewModel.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAAEwAAAARAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAIBJwEwAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-28T13:24:59.765Z"
+              "WhenOpened": "2024-02-28T13:24:59.765Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -182,7 +186,8 @@
               "RelativeToolTip": "MusicianInvoiceGenerator\\ViewModels\\BankDetailEntryViewModel.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAACUAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-25T20:41:08.013Z"
+              "WhenOpened": "2024-02-25T20:41:08.013Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -193,7 +198,8 @@
               "ToolTip": "C:\\Users\\matth\\source\\repos\\MusicianInvoiceGenerator\\MusicianInvoiceGenerator\\Views\\Controls\\BankDetailEntryControl.xaml",
               "RelativeToolTip": "MusicianInvoiceGenerator\\Views\\Controls\\BankDetailEntryControl.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-02-25T20:11:51.021Z"
+              "WhenOpened": "2024-02-25T20:11:51.021Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -204,7 +210,8 @@
               "ToolTip": "C:\\Users\\matth\\source\\repos\\MusicianInvoiceGenerator\\MusicianInvoiceGenerator\\Views\\Controls\\ContactEntryControl.xaml",
               "RelativeToolTip": "MusicianInvoiceGenerator\\Views\\Controls\\ContactEntryControl.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-02-05T12:30:11.309Z"
+              "WhenOpened": "2024-02-05T12:30:11.309Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -216,7 +223,8 @@
               "RelativeToolTip": "MusicianInvoiceGenerator\\App.xaml.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-01-31T10:53:26.189Z"
+              "WhenOpened": "2024-01-31T10:53:26.189Z",
+              "EditorCaption": ""
             }
           ]
         }
