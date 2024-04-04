@@ -1,0 +1,5 @@
+C:\Users\matth\source\repos\MusicianInvoiceGenerator\MusicianInvoiceGenerator\bin\Release\net6.0-windows\app.publish\MusicianInvoiceGenerator.exe
+C:\Users\matth\source\repos\MusicianInvoiceGenerator\MusicianInvoiceGenerator\bin\Release\net6.0-windows\app.publish\MusicianInvoiceGenerator.dll
+C:\Users\matth\source\repos\MusicianInvoiceGenerator\MusicianInvoiceGenerator\bin\Release\net6.0-windows\app.publish\MusicianInvoiceGenerator.deps.json
+C:\Users\matth\source\repos\MusicianInvoiceGenerator\MusicianInvoiceGenerator\bin\Release\net6.0-windows\app.publish\MusicianInvoiceGenerator.runtimeconfig.json
+C:\Users\matth\source\repos\MusicianInvoiceGenerator\MusicianInvoiceGenerator\bin\Release\net6.0-windows\app.publish\MusicianInvoiceGenerator.pdb

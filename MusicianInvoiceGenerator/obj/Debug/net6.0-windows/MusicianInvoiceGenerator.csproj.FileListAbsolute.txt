@@ -34,3 +34,5 @@ C:\Users\matth\source\repos\MusicianInvoiceGenerator\MusicianInvoiceGenerator\ob
 C:\Users\matth\source\repos\MusicianInvoiceGenerator\MusicianInvoiceGenerator\obj\Debug\net6.0-windows\Views\Controls\GigDisplayTable.baml
 C:\Users\matth\source\repos\MusicianInvoiceGenerator\MusicianInvoiceGenerator\obj\Debug\net6.0-windows\Views\DocViewWindow.g.cs
 C:\Users\matth\source\repos\MusicianInvoiceGenerator\MusicianInvoiceGenerator\obj\Debug\net6.0-windows\Views\DocViewWindow.baml
+C:\Users\matth\source\repos\MusicianInvoiceGenerator\MusicianInvoiceGenerator\obj\Debug\net6.0-windows\Views\DebugWindow.g.cs
+C:\Users\matth\source\repos\MusicianInvoiceGenerator\MusicianInvoiceGenerator\obj\Debug\net6.0-windows\Views\DebugWindow.baml
