@@ -10,10 +10,10 @@ using System.Diagnostics;
 
 namespace MusicianInvoiceGenerator.Data
 {
-    internal class InvoiceDataAccess
+    internal class InvoiceDataAccess : BaseDataAccess
     {
-        private string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["InvoiceDBS"].ConnectionString;
-        public InvoiceDataAccess() { }
+        public InvoiceDataAccess() : base("Invoices")
+        { }
         public void AddInvoice(Invoice i, int senderId, int recipientId)
         {
             string insertString = "INSERT INTO Invoices VALUES " +
@@ -32,19 +32,6 @@ namespace MusicianInvoiceGenerator.Data
         private string DateTimeToDateString(DateTime d)
         {
             return d.ToString("yyyy") + "-" + d.ToString("MM") + "-" + d.ToString("dd");
-        }
-        public string InvoiceCount()
-        {
-            string countString = "SELECT COUNT (*) FROM Invoices";
-            string count;
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                SqlCommand countCommand = new SqlCommand(countString, connection);
-                count = countCommand.ExecuteScalar().ToString();
-                connection.Close();
-            }
-            return count;
         }
     }
 }

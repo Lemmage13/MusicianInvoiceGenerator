@@ -40,9 +40,9 @@ namespace MusicianInvoiceGenerator.Views
 
         private void TestDBBtn_Click(object sender, RoutedEventArgs e)
         {
-            InvoiceDataAccess testDA = new InvoiceDataAccess();
-            testDA.AddInvoice(new TestInvoice(), 0, 1);
-            OutputTBlock.Text = "Count: " + testDA.InvoiceCount();
+            ContactsDataAccess testDA = new ContactsDataAccess();
+            testDA.AddContact(new ContactDetails("Test", "07*******", "l1", "l2", "town", "PC11 1AA"));
+            OutputTBlock.Text = "Count: " + testDA.Count();
         }
 
         private static bool IsServerConnected(string connectionString)
