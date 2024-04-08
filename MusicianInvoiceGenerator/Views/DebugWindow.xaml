@@ -17,7 +17,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Button Name="MainWindowBtn" Grid.Column="0" Grid.Row="0" Content="Open Main Window" Click="MainWindowBtn_Click"/>
-        <Button Name="TestDBBtn" Grid.Column="0" Grid.Row="1" Content="Test DB Connection"/>
-        <TextBlock Grid.Column="0" Grid.Row="2" Text="Output"/>
+        <Button Name="TestDBBtn" Grid.Column="0" Grid.Row="1" Content="Test DB Connection" Click="TestDBBtn_Click"/>
+        <TextBlock Name="OutputTBlock" Grid.Column="0" Grid.Row="2" Text="Output"/>
     </Grid>
 </Window>

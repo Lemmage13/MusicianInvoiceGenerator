@@ -61,7 +61,7 @@ namespace MusicianInvoiceGenerator.Views {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/MusicianInvoiceGenerator;V1.0.0.0;component/views/docviewwindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/MusicianInvoiceGenerator;component/views/docviewwindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Views\DocViewWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

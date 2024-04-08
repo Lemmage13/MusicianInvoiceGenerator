@@ -53,8 +53,7 @@ namespace MusicianInvoiceGenerator {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/MusicianInvoiceGenerator;V1.0.0.0;component/views/controls/contactentrycontrol.x" +
-                    "aml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/MusicianInvoiceGenerator;component/views/controls/contactentrycontrol.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\Views\Controls\ContactEntryControl.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
