@@ -40,8 +40,8 @@ namespace MusicianInvoiceGenerator.Views
 
         private void TestDBBtn_Click(object sender, RoutedEventArgs e)
         {
-            ContactsDataAccess testDA = new ContactsDataAccess();
-            testDA.AddContact(new ContactDetails("Test", "07*******", "l1", "l2", "town", "PC11 1AA"));
+            GigDataAccess testDA = new GigDataAccess();
+            testDA.AddGig(new GigModel("test",100), new TestInvoice());
             OutputTBlock.Text = "Count: " + testDA.Count();
         }
 
