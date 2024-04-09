@@ -72,8 +72,8 @@ namespace MusicianInvoiceGenerator.ViewModels
 
         #region Invoice Details
         //invoice details
-        private string _invoiceNumber;
-        public string InvoiceNumber
+        private int _invoiceNumber;
+        public int InvoiceNumber
         {
             get { return _invoiceNumber; }
             set

@@ -16,7 +16,7 @@ namespace MusicianInvoiceGenerator.Data
         { }
         public void AddInvoice(Invoice i, int senderId, int recipientId)
         {
-            string insertString = "INSERT INTO Invoices VALUES " +
+            string insertString = $"INSERT INTO {table} VALUES " +
                 $"({i.invoiceNo},{senderId},{recipientId},'{i.SenderBankDetails.SortCode}'," +
                 $"'{i.SenderBankDetails.AccountNumber}'," +
                 $"'{ DateTimeToDateString(i.InvoiceDate) }','{ DateTimeToDateString(i.DueDate) }');";
@@ -29,7 +29,21 @@ namespace MusicianInvoiceGenerator.Data
                 connection.Close();
             }
         }
-        private string DateTimeToDateString(DateTime d)
+        public bool InvoiceIdAvailable(int id)
+        {
+            string queryString = $"SELECT COUNT(*) FROM {table} WHERE Id = {id}";
+            int count;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand countCommand = new SqlCommand(queryString, connection);
+                count = Convert.ToInt32(countCommand.ExecuteScalar());
+                connection.Close();
+            }
+            if (count > 0) { return false; }
+            return true;
+        }
+        private string DateTimeToDateString(DateTime d) // POSSIBLY UNNECCESSARY
         {
             return d.ToString("yyyy") + "-" + d.ToString("MM") + "-" + d.ToString("dd");
         }

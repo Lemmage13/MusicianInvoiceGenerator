@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MusicianInvoiceGenerator")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+36cd8da9f355d418d06c9bdefcb4866bf1cf93a2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9f136552c46a534a66fee6f64395062bed26b03d")]
 [assembly: System.Reflection.AssemblyProductAttribute("MusicianInvoiceGenerator")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MusicianInvoiceGenerator")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

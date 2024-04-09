@@ -8,7 +8,7 @@ namespace MusicianInvoiceGenerator.Models
 {
     public class Invoice
     {
-        public string invoiceNo; //must be unique
+        public int invoiceNo; //must be unique
         public ContactDetails SenderContact;
         public BankDetails SenderBankDetails;
         public ContactDetails RecipientContact;
@@ -29,10 +29,10 @@ namespace MusicianInvoiceGenerator.Models
 
             invoiceNo = InvoiceNumGenerator();
         }
-        private string InvoiceNumGenerator()
+        private int InvoiceNumGenerator()
         {
             //Needs to automatically modify string to ensure number is unique
-            return InvoiceDate.Year.ToString() + InvoiceDate.Month.ToString() + InvoiceDate.Day.ToString();
+            return Convert.ToInt32(InvoiceDate.Year.ToString() + InvoiceDate.Month.ToString() + InvoiceDate.Day.ToString());
         }
     }
 }

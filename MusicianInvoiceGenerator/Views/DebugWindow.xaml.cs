@@ -40,11 +40,22 @@ namespace MusicianInvoiceGenerator.Views
 
         private void TestDBBtn_Click(object sender, RoutedEventArgs e)
         {
-            GigDataAccess testDA = new GigDataAccess();
-            testDA.AddGig(new GigModel("test",100), new TestInvoice());
-            OutputTBlock.Text = "Count: " + testDA.Count();
+            DBRelay db = new DBRelay();
+            db.SaveInvoice(new TestInvoice());
+            OutputTBlock.Text = CountStringBuilder();
         }
+        private string CountStringBuilder()
+        {
+            string invoiceCount = GetCount(new InvoiceDataAccess()).ToString();
+            string contactsCount = GetCount(new ContactsDataAccess()).ToString();
+            string gigsCount = GetCount(new GigDataAccess()).ToString();
 
+            return $"No. Invoices: {invoiceCount}, No. Contacts: {contactsCount}, No. Gigs: {gigsCount}";
+        }
+        private int GetCount(BaseDataAccess DA)
+        {
+            return DA.Count();
+        }
         private static bool IsServerConnected(string connectionString)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))

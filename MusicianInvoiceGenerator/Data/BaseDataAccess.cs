@@ -17,15 +17,15 @@ namespace MusicianInvoiceGenerator.Data
             table = t;
         }
 
-        public string Count()
+        public int Count()
         {
             string countString = $"SELECT COUNT (*) FROM { table }";
-            string count;
+            int count;
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
                 SqlCommand countCommand = new SqlCommand(countString, connection);
-                count = countCommand.ExecuteScalar().ToString();
+                count = Convert.ToInt32(countCommand.ExecuteScalar());
                 connection.Close();
             }
             return count;
