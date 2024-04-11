@@ -10,6 +10,7 @@ using System.Windows;
 using MusicianInvoiceGenerator.Views;
 using System.Windows.Input;
 using MusicianInvoiceGenerator.ViewModels.Commands;
+using MusicianInvoiceGenerator.ViewModels.Functionality;
 
 namespace MusicianInvoiceGenerator.ViewModels
 {
@@ -366,26 +367,18 @@ namespace MusicianInvoiceGenerator.ViewModels
         private void CreateInvoice()
         {
             //Save invoice to database <<TBA>>
-            FixedDocument invoice = PreviewToXPS();
-
             //open doc viewer window for generated invoice
             DocViewWindow DocView = new DocViewWindow();
-            DocView.DocViewer.Document = invoice;
+            DocView.DocViewer.Document = MakeInvoiceDocument();
             DocView.Show();
         }
-        private FixedDocument PreviewToXPS() { 
+        private FixedDocument MakeInvoiceDocument()
+        {
             InvoicePreviewControl control = new InvoicePreviewControl();
             control.DataContext = this;
-
-            FixedDocument fixedDoc = new FixedDocument();
-            PageContent pgContent = new PageContent();
-            FixedPage fixedPg = new FixedPage();
-
-            fixedPg.Children.Add(control);
-            pgContent.Child = fixedPg;
-            fixedDoc.Pages.Add(pgContent);
-
-            return fixedDoc;
+            ControlToFixedDoc docConverter = new ControlToFixedDoc();
+            FixedDocument invoice = docConverter.ControlToXPS(control);
+            return invoice;
         }
         #endregion
         protected void OnPropertyChanged([CallerMemberName] string? name = null)

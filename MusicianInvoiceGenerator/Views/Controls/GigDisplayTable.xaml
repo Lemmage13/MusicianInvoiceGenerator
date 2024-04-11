@@ -7,10 +7,22 @@
              xmlns:uc="clr-namespace:MusicianInvoiceGenerator.Views.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <Grid HorizontalAlignment="Stretch">
         <ItemsControl ItemsSource="{Binding Path=GigList}" Grid.IsSharedSizeScope="True">
+            <ItemsControl.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Margin" Value="2,2,2,2"/>
+                    <Setter Property="FontSize" Value="15"/>
+                </Style>
+            </ItemsControl.Resources>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
+                    <DataTemplate.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Margin" Value="2,2,2,2"/>
+                            <Setter Property="FontSize" Value="15"/>
+                        </Style>
+                    </DataTemplate.Resources>
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="400" SharedSizeGroup="Details"/>

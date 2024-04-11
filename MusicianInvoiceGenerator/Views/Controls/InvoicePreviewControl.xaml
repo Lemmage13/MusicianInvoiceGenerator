@@ -6,13 +6,15 @@
              xmlns:local="clr-namespace:MusicianInvoiceGenerator.Views.Controls"
              xmlns:uc="clr-namespace:MusicianInvoiceGenerator.Views.Controls"
              mc:Ignorable="d" 
-             Background="White">
+             Background="White"
+             HorizontalAlignment="Stretch" d:DesignWidth="663.697">
     <UserControl.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="Margin" Value="2,2,2,2"/>
+            <Setter Property="FontSize" Value="15"/>
         </Style>
     </UserControl.Resources>
-    <Grid Margin="10">
+    <Grid Margin="10" HorizontalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
