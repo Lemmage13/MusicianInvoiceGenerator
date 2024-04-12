@@ -1,5 +1,7 @@
-﻿using System;
+﻿using MusicianInvoiceGenerator.Data;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,12 +29,23 @@ namespace MusicianInvoiceGenerator.Models
             InvoiceDate = invoiceDate;
             DueDate = dueDate;
 
-            invoiceNo = InvoiceNumGenerator();
+            invoiceNo = InvoiceNumGenerator(invoiceDate);
         }
-        private int InvoiceNumGenerator()
+        private protected int InvoiceNumGenerator(DateTime iDate)
         {
-            //Needs to automatically modify string to ensure number is unique
-            return Convert.ToInt32(InvoiceDate.Year.ToString() + InvoiceDate.Month.ToString() + InvoiceDate.Day.ToString());
+            string numGen = $"{iDate.ToString("yyyy")}{iDate.ToString("MM")}{iDate.ToString("dd")}0";
+            int invoiceNo = Convert.ToInt32(numGen);
+            while(!VerifyInvoiceNumber(invoiceNo))
+            {
+                invoiceNo++;
+            }
+            Debug.WriteLine(invoiceNo.ToString());
+            return invoiceNo;
+        }
+        private bool VerifyInvoiceNumber(int i)
+        {
+            InvoiceDataAccess da = new InvoiceDataAccess();
+            return da.InvoiceIdAvailable(i);
         }
     }
 }
