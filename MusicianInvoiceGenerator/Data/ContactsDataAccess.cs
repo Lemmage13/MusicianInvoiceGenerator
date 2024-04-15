@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace MusicianInvoiceGenerator.Data
 {
@@ -37,10 +38,28 @@ namespace MusicianInvoiceGenerator.Data
         }
         public int? FindContact(ContactDetails c)
         {
-            //Find entry based on name
-            //verify all other fields
-            //if all fields match return Id
-            return null; //TEMPORARY
+            string selectString = $"SELECT TOP 1 Id FROM {table} WHERE " +
+                $"Name = '{c.Name}' AND " +
+                $"PhoneNumber = '{c.PhoneNumber}' AND " +
+                $"AddrsL1 = '{c.Line1}' AND " +
+                $"AddrsL2 = '{c.Line2}' AND " +
+                $"AddrsTown = '{c.Town}' AND " +
+                $"AddrsPostCode = '{c.Postcode}'";
+            int? id;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand selectCommand = new SqlCommand(selectString, connection);
+                var idTemp = selectCommand.ExecuteScalar();
+                if (idTemp == null)
+                {
+                    Debug.WriteLine("Contact Not Found");
+                    id = null;
+                }
+                else { id = Convert.ToInt32(idTemp); Debug.WriteLine("Contact Found"); }
+                connection.Close();
+            }
+            return id; //TEMPORARY
         }
     }
 }
