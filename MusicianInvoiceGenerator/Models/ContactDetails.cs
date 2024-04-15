@@ -2,6 +2,7 @@
 {
     public class ContactDetails
     {
+        public int? Id;
         public string Name;
         public string PhoneNumber;
         //Email?
@@ -13,6 +14,16 @@
 
         public ContactDetails(string name, string phoneNumber, string line1, string line2, string town, string postcode)
         {
+            Name = name;
+            PhoneNumber = phoneNumber;
+            Line1 = line1;
+            Line2 = line2;
+            Town = town;
+            Postcode = postcode;
+        }
+        public ContactDetails(int id, string name, string phoneNumber, string line1, string line2, string town, string postcode)
+        {
+            Id = id;
             Name = name;
             PhoneNumber = phoneNumber;
             Line1 = line1;
