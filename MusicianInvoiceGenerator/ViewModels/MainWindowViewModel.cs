@@ -91,7 +91,7 @@ namespace MusicianInvoiceGenerator.ViewModels
             _invoiceDate = DateTime.Now;
             _dueDate= InvoiceDate.AddDays(30);
         }
-        private ICommand _newInvoice;
+        private ICommand? _newInvoice;
         public ICommand NewInvoice
         {
             get
@@ -110,7 +110,6 @@ namespace MusicianInvoiceGenerator.ViewModels
             prevWindow.DataContext = prevVM;
             prevWindow.Show();
         }
-
         protected void OnPropertyChanged([CallerMemberName] string? name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
