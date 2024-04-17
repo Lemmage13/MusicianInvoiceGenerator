@@ -54,7 +54,7 @@ namespace MusicianInvoiceGenerator.ViewModels
         }
         private string GetTotalRate(Invoice i)
         {
-            double totalRate = 0;
+            decimal totalRate = 0;
             foreach (GigModel g in i.Gigs)
             {
                 totalRate += g.Rate;

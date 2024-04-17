@@ -45,3 +45,7 @@ C:\Users\matth\source\repos\MusicianInvoiceGenerator\MusicianInvoiceGenerator\bi
 C:\Users\matth\source\repos\MusicianInvoiceGenerator\MusicianInvoiceGenerator\bin\Debug\net6.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\matth\source\repos\MusicianInvoiceGenerator\MusicianInvoiceGenerator\obj\Debug\net6.0-windows\MusicianInvoiceGenerator.csproj.AssemblyReference.cache
 C:\Users\matth\source\repos\MusicianInvoiceGenerator\MusicianInvoiceGenerator\obj\Debug\net6.0-windows\Musician.75A161B5.Up2Date
+C:\Users\matth\source\repos\MusicianInvoiceGenerator\MusicianInvoiceGenerator\obj\Debug\net6.0-windows\Views\MainMenu.g.cs
+C:\Users\matth\source\repos\MusicianInvoiceGenerator\MusicianInvoiceGenerator\obj\Debug\net6.0-windows\Views\MainMenu.baml
+C:\Users\matth\source\repos\MusicianInvoiceGenerator\MusicianInvoiceGenerator\obj\Debug\net6.0-windows\Views\InvoiceViewWindow.g.cs
+C:\Users\matth\source\repos\MusicianInvoiceGenerator\MusicianInvoiceGenerator\obj\Debug\net6.0-windows\Views\InvoiceViewWindow.baml

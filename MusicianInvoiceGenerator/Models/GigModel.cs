@@ -9,9 +9,9 @@ namespace MusicianInvoiceGenerator.Models
     public class GigModel
     {
         public string Details;
-        public double Rate;
+        public decimal Rate;
 
-        public GigModel(string details, double rate)
+        public GigModel(string details, decimal rate)
         {
             Details = details;
             Rate = rate;

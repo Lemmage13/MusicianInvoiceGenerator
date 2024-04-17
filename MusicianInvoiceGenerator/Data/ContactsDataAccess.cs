@@ -1,6 +1,7 @@
 ﻿using MusicianInvoiceGenerator.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
@@ -59,7 +60,30 @@ namespace MusicianInvoiceGenerator.Data
                 else { id = Convert.ToInt32(idTemp); Debug.WriteLine("Contact Found"); }
                 connection.Close();
             }
-            return id; //TEMPORARY
+            return id;
+        }
+        public ContactDetails GetContactById(int id)
+        {
+            string selectString = $"SELECT TOP 1 * FROM {table} WHERE " +
+                $"Id = {id}";
+            Debug.WriteLine(selectString);
+            ContactDetails cd;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand selectCommand = new SqlCommand( selectString, connection);
+                SqlDataReader reader = selectCommand.ExecuteReader();
+                reader.Read();
+                cd = ReadContactRow(reader);
+                reader.Close();
+                connection.Close();
+            }
+            return cd;
+        }
+        private ContactDetails ReadContactRow(IDataRecord contactRecord)
+        {
+            return new ContactDetails(contactRecord.GetInt32(0), contactRecord.GetString(1), contactRecord.GetString(2),
+                contactRecord.GetString(3), contactRecord.GetString(4), contactRecord.GetString(5), contactRecord.GetString(6));
         }
     }
 }

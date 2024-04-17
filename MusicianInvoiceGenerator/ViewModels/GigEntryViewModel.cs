@@ -46,7 +46,7 @@ namespace MusicianInvoiceGenerator.ViewModels
             List<GigModel> model = new List<GigModel>();
             foreach(GigTxt gig in Gigs)
             {
-                model.Add(new GigModel(gig.Details, Convert.ToDouble(gig.Rate)));
+                model.Add(new GigModel(gig.Details, Convert.ToDecimal(gig.Rate)));
             }
             return model;
         }

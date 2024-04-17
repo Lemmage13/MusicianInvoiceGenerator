@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using MusicianInvoiceGenerator.Models;
 using System.Windows.Controls;
 using System.Diagnostics;
+using System.Data;
 
 namespace MusicianInvoiceGenerator.Data
 {
@@ -42,6 +43,37 @@ namespace MusicianInvoiceGenerator.Data
             }
             if (count > 0) { return false; }
             return true;
+        }
+        public List<Invoice> GetInvoices(InvoiceViewStringBuilder builder)
+        {
+            string queryString = $"SELECT * FROM {table}" + builder.BuildQueryParametersString();
+            Debug.WriteLine(queryString);
+            List<Invoice> invoices = new List<Invoice>();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand cmd = new SqlCommand(queryString, connection);
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    invoices.Add(ReadInvoiceRow(reader));
+                }
+                connection.Close();
+            }
+            return invoices;
+        }
+        private Invoice ReadInvoiceRow(IDataRecord invoiceRecord)
+        {
+            int id = invoiceRecord.GetInt32(0);
+            ContactDetails senderContact = new ContactsDataAccess().GetContactById(invoiceRecord.GetInt32(1));
+            ContactDetails recipientContact = new ContactsDataAccess().GetContactById(invoiceRecord.GetInt32(2));
+            BankDetails senderBankDetails = new BankDetails(invoiceRecord.GetString(3), invoiceRecord.GetString(4));
+            DateTime date = invoiceRecord.GetDateTime(5);
+            DateTime due = invoiceRecord.GetDateTime(6);
+
+            List<GigModel> gigs = new GigDataAccess().GetGigByInvoice(invoiceRecord.GetInt32(0));
+
+            return new Invoice(id, senderContact, senderBankDetails, recipientContact, gigs, date, due);
         }
         private string DateTimeToDateString(DateTime d) // POSSIBLY UNNECCESSARY
         {

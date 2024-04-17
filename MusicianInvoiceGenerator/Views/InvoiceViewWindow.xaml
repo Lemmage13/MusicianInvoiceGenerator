@@ -1,0 +1,69 @@
+﻿<Window x:Class="MusicianInvoiceGenerator.Views.InvoiceViewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MusicianInvoiceGenerator.Views"
+        mc:Ignorable="d"
+        Title="InvoiceViewWindow" Height="450" Width="800">
+    <Window.Resources>
+        <DataTemplate x:Key="invoiceDisplay">
+            <Grid>
+                <TextBlock Text="{Binding InvoiceNumber}"/>
+            </Grid>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="8*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="10*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Filters TBA"/>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="12*"/>
+                </Grid.RowDefinitions>
+                <Grid Background="DarkSlateBlue">
+                    <Grid.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                        </Style>
+                    </Grid.Resources>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition SharedSizeGroup="IdColumn"/>
+                        <ColumnDefinition SharedSizeGroup="RecipientColumn"/>
+                        <ColumnDefinition SharedSizeGroup="DescriptionColumn"/>
+                        <ColumnDefinition SharedSizeGroup="DateColumn"/>
+                        <ColumnDefinition SharedSizeGroup="DueColumn"/>
+                        <ColumnDefinition SharedSizeGroup="RateColumn"/>
+                        <ColumnDefinition SharedSizeGroup="PaidColumn"/>
+                        <ColumnDefinition SharedSizeGroup="ManageColumn"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="Id Number"/>
+                    <TextBlock Grid.Column="1" Text="Recipient"/>
+                    <TextBlock Grid.Column="2" Text="Description"/>
+                    <TextBlock Grid.Column="3" Text="Date"/>
+                    <TextBlock Grid.Column="4" Text="Due"/>
+                    <TextBlock Grid.Column="5" Text="Total Rate"/>
+                    <TextBlock Grid.Column="6" Text="Paid"/>
+                    <TextBlock Grid.Column="7" Text="Manage"/>
+                </Grid>
+                <ListBox Grid.Row="1" ItemsSource="{Binding Invoices}" ItemTemplate="{StaticResource invoiceDisplay}"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

@@ -15,7 +15,7 @@ namespace MusicianInvoiceGenerator.Models
             DateTime.Today,
             DateTime.Today.AddDays(30))
         {
-            invoiceNo = 1;
+            invoiceNo = InvoiceNumGenerator(DateTime.Today);
         }
     }
 }

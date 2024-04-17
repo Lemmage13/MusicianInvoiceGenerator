@@ -21,8 +21,8 @@ namespace MusicianInvoiceGenerator.ViewModels.ObservableObjects
             get { return _details; }
             set { _details = value; OnPropertyChanged(nameof(Details)); }
         }
-        private double _rate;
-        public double Rate
+        private decimal _rate;
+        public decimal Rate
         {
             get { return _rate; }
             set { _rate = value; OnPropertyChanged(nameof(Rate)); }

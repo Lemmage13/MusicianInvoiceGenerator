@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -34,6 +35,10 @@ namespace MusicianInvoiceGenerator.Data
                 gigDataAccess.AddGig(g, invoice);
             }
             Debug.WriteLine($"Invoice added, Id: {invoice.invoiceNo}");
+        }
+        public List<Invoice> GetInvoices(int page, int pagesize, DateTime startDate)
+        {
+            return invoiceDataAccess.GetInvoices(new InvoiceViewStringBuilder(page, pagesize, startDate));
         }
         private int SetContact(ContactDetails contact)
         {
