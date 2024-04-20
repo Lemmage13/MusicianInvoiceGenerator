@@ -5,13 +5,40 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MusicianInvoiceGenerator.Views"
         mc:Ignorable="d"
-        Title="InvoiceViewWindow" Height="450" Width="800">
+        Title="InvoiceViewWindow" Height="450" Width="800"
+        Grid.IsSharedSizeScope="True">
     <Window.Resources>
         <DataTemplate x:Key="invoiceDisplay">
             <Grid>
-                <TextBlock Text="{Binding InvoiceNumber}"/>
+                <Grid.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Margin" Value="0,0,10,0"/>
+                    </Style>
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="IdColumn"/>
+                    <ColumnDefinition SharedSizeGroup="RecipientColumn"/>
+                    <ColumnDefinition SharedSizeGroup="DescriptionColumn"/>
+                    <ColumnDefinition SharedSizeGroup="DateColumn"/>
+                    <ColumnDefinition SharedSizeGroup="DueColumn"/>
+                    <ColumnDefinition SharedSizeGroup="RateColumn"/>
+                    <ColumnDefinition SharedSizeGroup="PaidColumn"/>
+                    <ColumnDefinition SharedSizeGroup="ManageColumn"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="{Binding InvoiceNumber}"/>
+                <ContentControl Grid.Column="1" DataContext="{Binding SenderContact}">
+                    <TextBlock Text="{Binding Name}"/>
+                </ContentControl>
+                <ContentControl Grid.Column="2" DataContext="{Binding Gigs[0]}">
+                    <TextBlock Text="{Binding Details}"/>
+                </ContentControl>
+                <TextBlock Grid.Column="3" Text="{Binding Date, StringFormat={}{0:dd/MM/yyyy}}"/>
+                <TextBlock Grid.Column="4" Text="{Binding Due, StringFormat={}{0:dd/MM/yyyy}}"/>
+                <TextBlock Grid.Column="5" Text="{Binding TotalRate, StringFormat=C, ConverterCulture='en-GB'}"/>
+                <TextBlock Grid.Column="6" Text="Paid"/>
+                <Button Grid.Column="7" Content="Manage"/>
             </Grid>
-        </DataTemplate>
+        </DataTemplate> 
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -39,8 +66,9 @@
                     <Grid.Resources>
                         <Style TargetType="TextBlock">
                             <Setter Property="Foreground" Value="White"/>
-                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Left"/>
                             <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="Margin" Value="5"/>
                         </Style>
                     </Grid.Resources>
                     <Grid.ColumnDefinitions>
