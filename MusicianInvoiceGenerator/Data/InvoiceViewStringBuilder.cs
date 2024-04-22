@@ -24,7 +24,7 @@ namespace MusicianInvoiceGenerator.Data
             this.page = page;
             this.pageSize = pageSize;
             this.startDate = DateTimeToDateString(startDate);
-            this.endDate = DateTimeToDateString(DateTime.Today);
+            this.endDate = DateTimeToDateString(startDate.AddYears(1));
         }
         private string DateTimeToDateString(DateTime d) // POSSIBLY UNNECCESSARY
         {

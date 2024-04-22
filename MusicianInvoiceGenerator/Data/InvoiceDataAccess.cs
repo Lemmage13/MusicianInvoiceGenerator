@@ -56,6 +56,7 @@ namespace MusicianInvoiceGenerator.Data
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
+                    Debug.WriteLine(reader.GetInt32(0).ToString());
                     invoices.Add(ReadInvoiceRow(reader));
                 }
                 connection.Close();
