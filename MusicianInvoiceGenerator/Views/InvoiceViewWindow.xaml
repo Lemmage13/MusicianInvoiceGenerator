@@ -7,39 +7,6 @@
         mc:Ignorable="d"
         Title="InvoiceViewWindow" Height="450" Width="800"
         Grid.IsSharedSizeScope="True">
-    <Window.Resources>
-        <DataTemplate x:Key="invoiceDisplay">
-            <Grid>
-                <Grid.Resources>
-                    <Style TargetType="TextBlock">
-                        <Setter Property="Margin" Value="0,0,10,0"/>
-                    </Style>
-                </Grid.Resources>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition SharedSizeGroup="IdColumn"/>
-                    <ColumnDefinition SharedSizeGroup="RecipientColumn"/>
-                    <ColumnDefinition SharedSizeGroup="DescriptionColumn"/>
-                    <ColumnDefinition SharedSizeGroup="DateColumn"/>
-                    <ColumnDefinition SharedSizeGroup="DueColumn"/>
-                    <ColumnDefinition SharedSizeGroup="RateColumn"/>
-                    <ColumnDefinition SharedSizeGroup="PaidColumn"/>
-                    <ColumnDefinition SharedSizeGroup="ManageColumn"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Text="{Binding InvoiceNumber}"/>
-                <ContentControl Grid.Column="1" DataContext="{Binding SenderContact}">
-                    <TextBlock Text="{Binding Name}"/>
-                </ContentControl>
-                <ContentControl Grid.Column="2" DataContext="{Binding Gigs[0]}">
-                    <TextBlock Text="{Binding Details}"/>
-                </ContentControl>
-                <TextBlock Grid.Column="3" Text="{Binding Date, StringFormat={}{0:dd/MM/yyyy}}"/>
-                <TextBlock Grid.Column="4" Text="{Binding Due, StringFormat={}{0:dd/MM/yyyy}}"/>
-                <TextBlock Grid.Column="5" Text="{Binding TotalRate, StringFormat=C, ConverterCulture='en-GB'}"/>
-                <TextBlock Grid.Column="6" Text="Paid"/>
-                <Button Grid.Column="7" Content="Manage"/>
-            </Grid>
-        </DataTemplate> 
-    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -56,41 +23,40 @@
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="10*"/>
             </Grid.RowDefinitions>
-            <TextBlock Text="Filters TBA"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Start Date:"/>
+                <DatePicker Name="StartDatePicker" Grid.Column="1" SelectedDate="{Binding Path=StartDate}" Margin="5"/>
+                <TextBlock Text="End Date:" Grid.Column="2"/>
+                <DatePicker Name="EndDatePicker" Grid.Column="3" SelectedDate="{Binding Path=EndDate}" Margin="5"/>
+                <TextBlock Text="Paid?" Grid.Column="4"/>
+            </Grid>
             <Grid Grid.Row="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="12*"/>
-                </Grid.RowDefinitions>
-                <Grid Background="DarkSlateBlue">
-                    <Grid.Resources>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="Foreground" Value="White"/>
-                            <Setter Property="HorizontalAlignment" Value="Left"/>
-                            <Setter Property="VerticalAlignment" Value="Center"/>
-                            <Setter Property="Margin" Value="5"/>
-                        </Style>
-                    </Grid.Resources>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition SharedSizeGroup="IdColumn"/>
-                        <ColumnDefinition SharedSizeGroup="RecipientColumn"/>
-                        <ColumnDefinition SharedSizeGroup="DescriptionColumn"/>
-                        <ColumnDefinition SharedSizeGroup="DateColumn"/>
-                        <ColumnDefinition SharedSizeGroup="DueColumn"/>
-                        <ColumnDefinition SharedSizeGroup="RateColumn"/>
-                        <ColumnDefinition SharedSizeGroup="PaidColumn"/>
-                        <ColumnDefinition SharedSizeGroup="ManageColumn"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Text="Id Number"/>
-                    <TextBlock Grid.Column="1" Text="Recipient"/>
-                    <TextBlock Grid.Column="2" Text="Description"/>
-                    <TextBlock Grid.Column="3" Text="Date"/>
-                    <TextBlock Grid.Column="4" Text="Due"/>
-                    <TextBlock Grid.Column="5" Text="Total Rate"/>
-                    <TextBlock Grid.Column="6" Text="Paid"/>
-                    <TextBlock Grid.Column="7" Text="Manage"/>
-                </Grid>
-                <ListBox Grid.Row="1" ItemsSource="{Binding Invoices}" ItemTemplate="{StaticResource invoiceDisplay}"/>
+                <DataGrid CanUserAddRows="False" IsReadOnly="True" ItemsSource="{Binding Path=Invoices}" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id Number" Binding="{Binding InvoiceNumber}" SortDirection="Descending"/>
+                        <DataGridTextColumn Header="Recipient" Binding="{Binding Path=RecipientContact.Name}"/>
+                        <DataGridTextColumn Header="Description" Binding="{Binding Path=Gigs[0].Details}"/>
+                        <DataGridTextColumn Header="Date" Binding="{Binding Path=Date, StringFormat={}{0:dd/MM/yyyy}}"/>
+                        <DataGridTextColumn Header="Date" Binding="{Binding Path=Due, StringFormat={}{0:dd/MM/yyyy}}"/>
+                        <DataGridTextColumn Header="Rate" Binding="{Binding Path=TotalRate, StringFormat=C, ConverterCulture='en-GB'}"/>
+                        <DataGridCheckBoxColumn Header="Paid"/>
+                        <DataGridTemplateColumn Header="Manage">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Manage"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
             </Grid>
         </Grid>
     </Grid>

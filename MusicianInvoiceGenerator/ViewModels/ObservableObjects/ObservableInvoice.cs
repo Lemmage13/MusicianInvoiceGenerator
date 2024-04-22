@@ -80,5 +80,18 @@ namespace MusicianInvoiceGenerator.ViewModels.ObservableObjects
             get { return _due; }
             set { _due = value; OnPropertyChanged(nameof(Due)); }
         }
+
+        public decimal TotalRate
+        {
+            get 
+            {
+                decimal r = 0;
+                foreach(ObservableGig g in Gigs)
+                {
+                    r += g.Rate;
+                } 
+                return r;
+            }
+        }
     }
 }
