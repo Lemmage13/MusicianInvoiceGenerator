@@ -71,10 +71,11 @@ namespace MusicianInvoiceGenerator.Data
             BankDetails senderBankDetails = new BankDetails(invoiceRecord.GetString(3), invoiceRecord.GetString(4));
             DateTime date = invoiceRecord.GetDateTime(5);
             DateTime due = invoiceRecord.GetDateTime(6);
+            bool paid = invoiceRecord.GetBoolean(7);
 
             List<GigModel> gigs = new GigDataAccess().GetGigByInvoice(invoiceRecord.GetInt32(0));
 
-            return new Invoice(id, senderContact, senderBankDetails, recipientContact, gigs, date, due);
+            return new Invoice(id, senderContact, senderBankDetails, recipientContact, gigs, date, due, paid);
         }
         private string DateTimeToDateString(DateTime d) // POSSIBLY UNNECCESSARY
         {

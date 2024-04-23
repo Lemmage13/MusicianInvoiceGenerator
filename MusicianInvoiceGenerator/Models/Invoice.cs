@@ -19,6 +19,8 @@ namespace MusicianInvoiceGenerator.Models
         public DateTime InvoiceDate;
         public DateTime DueDate;
 
+        public bool Paid;
+
         public Invoice(ContactDetails senderContact, BankDetails senderBankDetails, ContactDetails recipientContact, List<GigModel> gigs,
             DateTime invoiceDate, DateTime dueDate)
         {
@@ -29,10 +31,11 @@ namespace MusicianInvoiceGenerator.Models
             InvoiceDate = invoiceDate;
             DueDate = dueDate;
 
+            Paid = false;
             invoiceNo = InvoiceNumGenerator(invoiceDate);
         }
         public Invoice(int id, ContactDetails senderContact, BankDetails senderBankDetails, ContactDetails recipientContact, List<GigModel> gigs,
-            DateTime invoiceDate, DateTime dueDate)
+            DateTime invoiceDate, DateTime dueDate, bool paid)
         {
             invoiceNo = id;
             SenderContact = senderContact;
@@ -41,6 +44,7 @@ namespace MusicianInvoiceGenerator.Models
             Gigs = gigs;
             InvoiceDate = invoiceDate;
             DueDate = dueDate;
+            Paid = paid;
         }
         private protected int InvoiceNumGenerator(DateTime iDate)
         {
