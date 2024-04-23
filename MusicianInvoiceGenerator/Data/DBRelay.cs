@@ -36,9 +36,9 @@ namespace MusicianInvoiceGenerator.Data
             }
             Debug.WriteLine($"Invoice added, Id: {invoice.invoiceNo}");
         }
-        public List<Invoice> GetInvoices(int page, int pagesize, DateTime startDate)
+        public List<Invoice> GetInvoices(int page, int pagesize, DateTime startDate, DateTime endDate, bool? paid)
         {
-            return invoiceDataAccess.GetInvoices(new InvoiceViewStringBuilder(page, pagesize, startDate));
+            return invoiceDataAccess.GetInvoices(new InvoiceViewStringBuilder(page, pagesize, startDate, endDate, paid));
         }
         private int SetContact(ContactDetails contact)
         {

@@ -37,6 +37,11 @@
                 <TextBlock Text="End Date:" Grid.Column="2"/>
                 <DatePicker Name="EndDatePicker" Grid.Column="3" SelectedDate="{Binding Path=EndDate}" Margin="5"/>
                 <TextBlock Text="Paid?" Grid.Column="4"/>
+                <ComboBox Grid.Column="5" SelectedIndex="{Binding PaidFilterIndex}" IsReadOnly="True">
+                    <ComboBoxItem Content="Any" IsSelected="True"/>
+                    <ComboBoxItem Content="Paid"/>
+                    <ComboBoxItem Content="Unpaid"/>
+                </ComboBox>
             </Grid>
             <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
