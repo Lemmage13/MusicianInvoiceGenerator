@@ -39,15 +39,19 @@
                 <TextBlock Text="Paid?" Grid.Column="4"/>
             </Grid>
             <Grid Grid.Row="1">
-                <DataGrid CanUserAddRows="False" IsReadOnly="True" ItemsSource="{Binding Path=Invoices}" AutoGenerateColumns="False">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <DataGrid CanUserAddRows="False" ItemsSource="{Binding Path=Invoices}" AutoGenerateColumns="False">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Id Number" Binding="{Binding InvoiceNumber}" SortDirection="Descending"/>
-                        <DataGridTextColumn Header="Recipient" Binding="{Binding Path=RecipientContact.Name}"/>
-                        <DataGridTextColumn Header="Description" Binding="{Binding Path=Gigs[0].Details}"/>
-                        <DataGridTextColumn Header="Date" Binding="{Binding Path=Date, StringFormat={}{0:dd/MM/yyyy}}"/>
-                        <DataGridTextColumn Header="Date" Binding="{Binding Path=Due, StringFormat={}{0:dd/MM/yyyy}}"/>
-                        <DataGridTextColumn Header="Rate" Binding="{Binding Path=TotalRate, StringFormat=C, ConverterCulture='en-GB'}"/>
-                        <DataGridCheckBoxColumn Header="Paid"/>
+                        <DataGridTextColumn IsReadOnly="True" Header="Id Number" Binding="{Binding InvoiceNumber}" SortDirection="Descending"/>
+                        <DataGridTextColumn IsReadOnly="True" Header="Recipient" Binding="{Binding Path=RecipientContact.Name}"/>
+                        <DataGridTextColumn IsReadOnly="True" Header="Description" Binding="{Binding Path=Gigs[0].Details}"/>
+                        <DataGridTextColumn IsReadOnly="True" Header="Date" Binding="{Binding Path=Date, StringFormat={}{0:dd/MM/yyyy}}"/>
+                        <DataGridTextColumn IsReadOnly="True" Header="Date" Binding="{Binding Path=Due, StringFormat={}{0:dd/MM/yyyy}}"/>
+                        <DataGridTextColumn IsReadOnly="True" Header="Rate" Binding="{Binding Path=TotalRate, StringFormat=C, ConverterCulture='en-GB'}"/>
+                        <DataGridCheckBoxColumn IsReadOnly="False" Header="Paid" Binding="{Binding Path=Paid}"/>
                         <DataGridTemplateColumn Header="Manage">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
@@ -56,7 +60,23 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=PaidState}" Value="0">
+                                    <Setter Property="Background" Value="AliceBlue"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Path=PaidState}" Value="1">
+                                    <Setter Property="Background" Value="LightYellow"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Path=PaidState}" Value="2">
+                                    <Setter Property="Background" Value="PaleVioletRed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.RowStyle>
                 </DataGrid>
+                
             </Grid>
         </Grid>
     </Grid>

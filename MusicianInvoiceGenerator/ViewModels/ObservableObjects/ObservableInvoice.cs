@@ -78,9 +78,23 @@ namespace MusicianInvoiceGenerator.ViewModels.ObservableObjects
         public DateTime Due
         {
             get { return _due; }
-            set { _due = value; OnPropertyChanged(nameof(Due)); }
+            set { _due = value; OnPropertyChanged(nameof(Due)); OnPropertyChanged(nameof(PaidState)); }
         }
-
+        private bool _paid;
+        public bool Paid
+        {
+            get { return _paid; }
+            set { _paid = value; OnPropertyChanged(nameof(Paid)); OnPropertyChanged(nameof(PaidState)); }
+        }
+        public int PaidState
+        {
+            get
+            {
+                if (Paid) { return 0; } //invoice is paid
+                if (DateTime.Now < Due) { return 1; } //invoice is not paid, but not overdue
+                return 2; //invoice is not paid and overdue
+            }
+        }
         public decimal TotalRate
         {
             get 
