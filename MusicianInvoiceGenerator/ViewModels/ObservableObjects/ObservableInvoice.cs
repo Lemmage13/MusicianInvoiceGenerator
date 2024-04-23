@@ -1,4 +1,5 @@
-﻿using MusicianInvoiceGenerator.Models;
+﻿using MusicianInvoiceGenerator.Data;
+using MusicianInvoiceGenerator.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,7 +18,7 @@ namespace MusicianInvoiceGenerator.ViewModels.ObservableObjects
 
         public ObservableInvoice(Invoice i)
         {
-            _invoiceNumber = i.invoiceNo.ToString();
+            _invoiceNumber = i.invoiceNo;
             _senderContact = new ObservableContact(i.SenderContact);
             _sortCode = i.SenderBankDetails.SortCode;
             _accountNumber = i.SenderBankDetails.AccountNumber;
@@ -29,14 +30,14 @@ namespace MusicianInvoiceGenerator.ViewModels.ObservableObjects
             }
             _date = i.InvoiceDate;
             _due = i.DueDate;
-
+            _paid = i.Paid;
         }
 
-        private string _invoiceNumber;
+        private int _invoiceNumber;
         public string InvoiceNumber
         {
-            get { return _invoiceNumber; }
-            set { _invoiceNumber = value; OnPropertyChanged(nameof(InvoiceNumber)); }
+            get { return _invoiceNumber.ToString(); }
+            set { _invoiceNumber = Convert.ToInt32(value); OnPropertyChanged(nameof(InvoiceNumber)); }
         }
         private ObservableContact _senderContact;
         public ObservableContact SenderContact
@@ -84,7 +85,12 @@ namespace MusicianInvoiceGenerator.ViewModels.ObservableObjects
         public bool Paid
         {
             get { return _paid; }
-            set { _paid = value; OnPropertyChanged(nameof(Paid)); OnPropertyChanged(nameof(PaidState)); }
+            set { _paid = value; UpdateInvoicePaid(); OnPropertyChanged(nameof(Paid)); OnPropertyChanged(nameof(PaidState)); }
+        }
+        private void UpdateInvoicePaid()
+        {
+            InvoiceDataAccess da = new InvoiceDataAccess();
+            da.UpdatePaid(_invoiceNumber, Paid);
         }
         public int PaidState
         {

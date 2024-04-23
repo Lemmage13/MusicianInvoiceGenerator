@@ -22,13 +22,7 @@ namespace MusicianInvoiceGenerator.Data
                 $"'{i.SenderBankDetails.AccountNumber}'," +
                 $"'{ DateTimeToDateString(i.InvoiceDate) }','{ DateTimeToDateString(i.DueDate) }');";
             Debug.WriteLine(insertString);
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                SqlCommand insertCommand = new SqlCommand(insertString, connection);
-                insertCommand.ExecuteNonQuery();
-                connection.Close();
-            }
+            ExecuteNonQuery(insertString);
         }
         public bool InvoiceIdAvailable(int id)
         {
@@ -62,6 +56,22 @@ namespace MusicianInvoiceGenerator.Data
                 connection.Close();
             }
             return invoices;
+        }
+        public void UpdatePaid(int id, bool p)
+        {
+            string updatestring = $"UPDATE {table} SET Paid = '{Convert.ToInt16(p)}' WHERE Id = '{id}'";
+            Debug.WriteLine (updatestring);
+            ExecuteNonQuery(updatestring);
+        }
+        private void ExecuteNonQuery(string cmdString)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand insertCommand = new SqlCommand(cmdString, connection);
+                insertCommand.ExecuteNonQuery();
+                connection.Close();
+            }
         }
         private Invoice ReadInvoiceRow(IDataRecord invoiceRecord)
         {
