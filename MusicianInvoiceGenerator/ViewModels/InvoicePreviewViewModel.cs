@@ -351,23 +351,44 @@ namespace MusicianInvoiceGenerator.ViewModels
                 OnPropertyChanged(nameof(RateTotal));
             }
         }
-        private ICommand _generateInvoice;
-        public ICommand GenerateInvoice
+        private ICommand? _saveInvoiceCmd;
+        public ICommand SaveInvoiceCmd
         {
             get
             {
-                if (_generateInvoice == null)
+                if (_saveInvoiceCmd == null)
                 {
-                    _generateInvoice = new RelayCommand(param => CreateInvoice());
+                    _saveInvoiceCmd = new RelayCommand(param => SaveInvoice());
                 }
-                return _generateInvoice;
+                return _saveInvoiceCmd;
+            }
+        }
+        private ICommand? _openInvoiceDoc;
+        public ICommand OpenInvoiceDoc
+        {
+            get
+            {
+                if (_openInvoiceDoc == null)
+                {
+                    _openInvoiceDoc = new RelayCommand(param => OpenInvoiceDocViewer());
+                }
+                return _openInvoiceDoc;
             }
         }
         #region Methods
-        private void CreateInvoice()
+        private void SaveInvoice()
         {
-            //Save invoice to database <<TBA>>
-            //open doc viewer window for generated invoice
+            if (MessageBox.Show("Are you sure all details in the invoice are correct?", "Are you sure?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+
+                //Save invoice to database <<TBA>>
+                //open doc viewer window for generated invoice
+                OpenInvoiceDocViewer();
+                //close MainWindow and PreviewWindow
+            }
+        }
+        private void OpenInvoiceDocViewer()
+        {
             DocViewWindow DocView = new DocViewWindow();
             DocView.DocViewer.Document = MakeInvoiceDocument();
             DocView.Show();

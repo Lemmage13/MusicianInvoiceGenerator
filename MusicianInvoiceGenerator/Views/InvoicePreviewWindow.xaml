@@ -7,19 +7,28 @@
         xmlns:vm="clr-namespace:MusicianInvoiceGenerator.ViewModels"
         xmlns:uc="clr-namespace:MusicianInvoiceGenerator.Views.Controls"
         mc:Ignorable="d"
-        Title="InvoicePreviewWindow" Height="450" Width="800">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="10*"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <uc:InvoicePreviewControl Grid.Column="1" Grid.Row="1"/>
-        <Button Content="Generate Invoice" Grid.Column="1" Grid.Row="3" Margin="5,5,5,5" Command="{Binding GenerateInvoice}"/>
-    </Grid>
+        Title="InvoicePreviewWindow" Height="600" Width="800">
+    <ScrollViewer>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <uc:InvoicePreviewControl Grid.Column="1" Grid.Row="1"/>
+            <Grid Grid.Column="1" Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Content="View as Document" FontSize="15" Grid.Column="0" Margin="5" Command="{Binding OpenInvoiceDoc}"/>
+                <Button Content="Save Invoice" FontSize="15" Grid.Column="1" Margin="5" Command="{Binding SaveInvoiceCmd}"/>
+            </Grid>
+        </Grid>
+    </ScrollViewer>
 </Window>
