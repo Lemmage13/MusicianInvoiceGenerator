@@ -14,7 +14,11 @@ namespace MusicianInvoiceGenerator.ViewModels.ObservableObjects
             _details = g.Details;
             _rate = g.Rate;
         }
-
+        public ObservableGig()
+        {
+            _details = String.Empty;
+            _rate = 0;
+        }
         private string _details;
         public string Details 
         {  
@@ -26,6 +30,13 @@ namespace MusicianInvoiceGenerator.ViewModels.ObservableObjects
         {
             get { return _rate; }
             set { _rate = value; OnPropertyChanged(nameof(Rate)); }
+        }
+        public string StringRate
+        {
+            get
+            {
+                return _rate.ToString();
+            }
         }
     }
 }

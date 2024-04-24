@@ -34,6 +34,11 @@ namespace MusicianInvoiceGenerator.ViewModels
             _sortCode = string.Empty;
             _accountNumber = string.Empty;
         }
+        public BankDetailEntryViewModel(BankDetails c)
+        {
+            _sortCode = c.SortCode;
+            _accountNumber = c.AccountNumber;
+        }
         public BankDetails MakeModel()
         {
             return new BankDetails(SortCode, AccountNumber);

@@ -17,7 +17,7 @@ namespace MusicianInvoiceGenerator.Data
         { }
         public void AddInvoice(Invoice i, int senderId, int recipientId)
         {
-            string insertString = $"INSERT INTO {table} VALUES " +
+            string insertString = $"INSERT INTO {table} (Id, SenderContactId, RecipientContactId, SortCode, AccountNumber, InvoiceDate, DueDate) VALUES " +
                 $"({i.invoiceNo},{senderId},{recipientId},'{i.SenderBankDetails.SortCode}'," +
                 $"'{i.SenderBankDetails.AccountNumber}'," +
                 $"'{ DateTimeToDateString(i.InvoiceDate) }','{ DateTimeToDateString(i.DueDate) }');";

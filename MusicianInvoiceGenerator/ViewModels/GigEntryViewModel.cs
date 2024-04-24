@@ -1,11 +1,13 @@
 ﻿using MusicianInvoiceGenerator.Models;
 using MusicianInvoiceGenerator.ViewModels.Commands;
+using MusicianInvoiceGenerator.ViewModels.ObservableObjects;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,13 +21,21 @@ namespace MusicianInvoiceGenerator.ViewModels
 
 
 
-        public ObservableCollection<GigTxt> Gigs { get; set; }
+        public ObservableCollection<ObservableGig> Gigs { get; set; }
 
         public GigEntryViewModel()
         {
-            Gigs = new ObservableCollection<GigTxt> { new GigTxt() };
+            Gigs = new ObservableCollection<ObservableGig> { new ObservableGig() };
         }
-        private ICommand _addGig;
+        public GigEntryViewModel(List<GigModel> gs)
+        {
+            Gigs = new ObservableCollection<ObservableGig>();
+            foreach(GigModel g in gs)
+            {
+                Gigs.Add(new ObservableGig(g));
+            }
+        }
+        private ICommand? _addGig;
         public ICommand AddGig
         {
             get
@@ -39,12 +49,12 @@ namespace MusicianInvoiceGenerator.ViewModels
         }
         private void NewGig()
         {
-            Gigs.Add(new GigTxt());
+            Gigs.Add(new ObservableGig());
         }
         public List<GigModel> MakeModel()
         {
             List<GigModel> model = new List<GigModel>();
-            foreach(GigTxt gig in Gigs)
+            foreach(ObservableGig gig in Gigs)
             {
                 model.Add(new GigModel(gig.Details, Convert.ToDecimal(gig.Rate)));
             }
@@ -53,41 +63,6 @@ namespace MusicianInvoiceGenerator.ViewModels
         protected void OnPropertyChanged([CallerMemberName] string? name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
-        //nested class to hold user entry without causing type errors -- MUST BE VALIDATED before model is updated
-        public class GigTxt : INotifyPropertyChanged
-        {
-            public event PropertyChangedEventHandler? PropertyChanged;
-
-            private string _details;
-            public string Details
-            {
-                get { return _details; }
-                set
-                {
-                    _details = value;
-                    OnPropertyChanged(nameof(Details));
-                }
-            }
-            private string _rate;
-            public string Rate
-            {
-                get { return _rate; }
-                set
-                {
-                    _rate = value;
-                    OnPropertyChanged(nameof(Rate));
-                }
-            }
-            public GigTxt()
-            {
-                _details = String.Empty;
-                _rate = "0";
-            }
-            protected void OnPropertyChanged([CallerMemberName] string? name = null)
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-            }
         }
     }
 }

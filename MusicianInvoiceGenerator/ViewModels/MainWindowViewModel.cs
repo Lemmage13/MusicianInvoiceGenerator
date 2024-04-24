@@ -16,6 +16,9 @@ namespace MusicianInvoiceGenerator.ViewModels
     class MainWindowViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
+
+        private Invoice? invoice;
+
         private ContactEntryViewModel _senderContact;
         public ContactEntryViewModel SenderContact
         {
@@ -24,7 +27,6 @@ namespace MusicianInvoiceGenerator.ViewModels
             {
                 _senderContact = value;
                 OnPropertyChanged(nameof(SenderContact));
-                OnPropertyChanged(nameof(CanGenerateInvoice));
             }
         }
         private ContactEntryViewModel _recipientContact;
@@ -35,7 +37,6 @@ namespace MusicianInvoiceGenerator.ViewModels
             {
                 _recipientContact = value;
                 OnPropertyChanged(nameof(RecipientContact));
-                OnPropertyChanged(nameof(CanGenerateInvoice));
             }
         }
         private BankDetailEntryViewModel _bankDetails;
@@ -94,16 +95,26 @@ namespace MusicianInvoiceGenerator.ViewModels
             _invoiceDate = DateTime.Now;
             _dueDate= InvoiceDate.AddDays(30);
         }
-        private ICommand? _newInvoice;
-        public ICommand NewInvoice
+        public MainWindowViewModel(Invoice i)
+        {
+            invoice = i;
+            _senderContact = new ContactEntryViewModel(invoice.SenderContact);
+            _recipientContact = new ContactEntryViewModel(invoice.RecipientContact);
+            _bankDetails= new BankDetailEntryViewModel(invoice.SenderBankDetails);
+            _gigEntry = new GigEntryViewModel(invoice.Gigs);
+            _invoiceDate = invoice.InvoiceDate;
+            _dueDate= invoice.DueDate;
+        }
+        private ICommand? _previewInvoice;
+        public ICommand PreviewInvoice
         {
             get
             {
-                if( _newInvoice == null)
+                if(_previewInvoice == null)
                 {
-                    _newInvoice = new RelayCommand(param => OpenPreviewWindow(), pred => CanGenerateInvoice());
+                    _previewInvoice = new RelayCommand(param => OpenPreviewWindow(), pred => CanGenerateInvoice());
                 }
-                return _newInvoice;
+                return _previewInvoice;
             }
         }
         private bool CanGenerateInvoice()
@@ -115,7 +126,9 @@ namespace MusicianInvoiceGenerator.ViewModels
         }
         private void OpenPreviewWindow()
         {
-            InvoicePreviewViewModel prevVM = new InvoicePreviewViewModel(new Invoice(SenderContact.MakeModel(), BankDetails.MakeModel(), RecipientContact.MakeModel(), GigEntry.MakeModel(), InvoiceDate, DueDate));
+            bool modify = false;
+            if (invoice != null) { modify = true; }
+            InvoicePreviewViewModel prevVM = new InvoicePreviewViewModel(new Invoice(SenderContact.MakeModel(), BankDetails.MakeModel(), RecipientContact.MakeModel(), GigEntry.MakeModel(), InvoiceDate, DueDate), modify);
             InvoicePreviewWindow prevWindow = new InvoicePreviewWindow();
             prevWindow.DataContext = prevVM;
             prevWindow.Show();

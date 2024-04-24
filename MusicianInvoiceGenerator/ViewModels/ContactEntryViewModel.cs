@@ -78,6 +78,15 @@ namespace MusicianInvoiceGenerator.ViewModels
             _town = string.Empty;
             _postCode = string.Empty;
         }
+        public ContactEntryViewModel(ContactDetails c)
+        {
+            _name = c.Name;
+            _phoneNumber = c.PhoneNumber;
+            _line1 = c.Line1;
+            _line2 = c.Line2;
+            _town = c.Town;
+            _postCode = c.Postcode;
+        }
         public ContactDetails MakeModel()
         {
             return new ContactDetails(Name, PhoneNumber, Line1, Line2, Town, PostCode);

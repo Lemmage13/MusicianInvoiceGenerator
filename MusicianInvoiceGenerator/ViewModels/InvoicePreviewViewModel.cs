@@ -11,6 +11,8 @@ using MusicianInvoiceGenerator.Views;
 using System.Windows.Input;
 using MusicianInvoiceGenerator.ViewModels.Commands;
 using MusicianInvoiceGenerator.ViewModels.Functionality;
+using MusicianInvoiceGenerator.Data;
+using System;
 
 namespace MusicianInvoiceGenerator.ViewModels
 {
@@ -18,13 +20,12 @@ namespace MusicianInvoiceGenerator.ViewModels
     {
 
         public event PropertyChangedEventHandler? PropertyChanged;
+        private bool modifyExistingInvoice;
 
-        //control -> XPS
-        //XPS -> PDF via PDF printer drivers
         //invoice object exposed as variables for invoice display
         public Invoice Invoice { get; set; }
 
-        public InvoicePreviewViewModel(Invoice i)
+        public InvoicePreviewViewModel(Invoice i, bool modify)
         {
             Invoice = i;
             _invoiceNumber = Invoice.invoiceNo;
@@ -40,9 +41,9 @@ namespace MusicianInvoiceGenerator.ViewModels
 
             _recipientName = Invoice.RecipientContact.Name;
             _recipientPhoneNo = Invoice.RecipientContact.PhoneNumber;
+            _recipientTown = Invoice.RecipientContact.Town;
             _recipientL1 = Invoice.RecipientContact.Line1;
             _recipientL2 = Invoice.RecipientContact.Line2;
-            _recipientTown = Invoice.RecipientContact.Town;
             _recipientPostcode = Invoice.RecipientContact.Postcode;
 
             _sortCode = Invoice.SenderBankDetails.SortCode;
@@ -51,6 +52,7 @@ namespace MusicianInvoiceGenerator.ViewModels
             _gigList = GetGigTxts(Invoice);
             _rateTotal = GetTotalRate(Invoice);
 
+            modifyExistingInvoice = modify;
         }
         private string GetTotalRate(Invoice i)
         {
@@ -363,6 +365,18 @@ namespace MusicianInvoiceGenerator.ViewModels
                 return _saveInvoiceCmd;
             }
         }
+        private ICommand? _modifyInvoiceCmd;
+        public ICommand ModifyInvoiceCmd
+        {
+            get
+            {
+                if (_modifyInvoiceCmd == null)
+                {
+                    _modifyInvoiceCmd = new RelayCommand(param => ModifyInvoice());
+                }
+                return _modifyInvoiceCmd;
+            }
+        }
         private ICommand? _openInvoiceDoc;
         public ICommand OpenInvoiceDoc
         {
@@ -381,11 +395,16 @@ namespace MusicianInvoiceGenerator.ViewModels
             if (MessageBox.Show("Are you sure all details in the invoice are correct?", "Are you sure?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
 
-                //Save invoice to database <<TBA>>
+                //Save invoice to database
+                new DBRelay().SaveInvoice(Invoice);
                 //open doc viewer window for generated invoice
                 OpenInvoiceDocViewer();
                 //close MainWindow and PreviewWindow
             }
+        }
+        private void ModifyInvoice()
+        {
+            throw new NotImplementedException();
         }
         private void OpenInvoiceDocViewer()
         {
