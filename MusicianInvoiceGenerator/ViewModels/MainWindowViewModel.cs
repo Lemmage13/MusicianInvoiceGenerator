@@ -9,6 +9,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Diagnostics;
 
 namespace MusicianInvoiceGenerator.ViewModels
 {
@@ -23,6 +24,7 @@ namespace MusicianInvoiceGenerator.ViewModels
             {
                 _senderContact = value;
                 OnPropertyChanged(nameof(SenderContact));
+                OnPropertyChanged(nameof(CanGenerateInvoice));
             }
         }
         private ContactEntryViewModel _recipientContact;
@@ -33,6 +35,7 @@ namespace MusicianInvoiceGenerator.ViewModels
             {
                 _recipientContact = value;
                 OnPropertyChanged(nameof(RecipientContact));
+                OnPropertyChanged(nameof(CanGenerateInvoice));
             }
         }
         private BankDetailEntryViewModel _bankDetails;
@@ -98,10 +101,17 @@ namespace MusicianInvoiceGenerator.ViewModels
             {
                 if( _newInvoice == null)
                 {
-                    _newInvoice = new RelayCommand(param => OpenPreviewWindow());
+                    _newInvoice = new RelayCommand(param => OpenPreviewWindow(), pred => CanGenerateInvoice());
                 }
                 return _newInvoice;
             }
+        }
+        private bool CanGenerateInvoice()
+        {
+            if (SenderContact.Name == String.Empty) { return false; }
+            if (RecipientContact.Name == String.Empty) { return false; }
+            if (BankDetails.SortCode == String.Empty || BankDetails.AccountNumber == String.Empty) { return false; }
+            return true;
         }
         private void OpenPreviewWindow()
         {

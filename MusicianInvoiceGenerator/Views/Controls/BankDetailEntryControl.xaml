@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MusicianInvoiceGenerator"
+             xmlns:vr="clr-namespace:MusicianInvoiceGenerator.ViewModels.ValidationRules"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -16,7 +17,15 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Column="0" Text="Sort Code: "/>
-        <TextBox Grid.Column="1" Margin="2,2,2,2" Text="{Binding SortCode, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Column="1" Margin="2,2,2,2">
+            <TextBox.Text>
+                <Binding Path="SortCode" UpdateSourceTrigger="PropertyChanged" ValidatesOnDataErrors="True">
+                    <Binding.ValidationRules>
+                        <vr:SortCodeValidationRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
         <TextBlock Grid.Column="0" Grid.Row="1" Text="Account Number: "/>
         <TextBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" Text="{Binding AccountNumber, UpdateSourceTrigger=PropertyChanged}"/>
     </Grid>

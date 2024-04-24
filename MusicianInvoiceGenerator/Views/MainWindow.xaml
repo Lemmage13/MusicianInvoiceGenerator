@@ -82,8 +82,8 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <TextBlock Text="Payment Details" HorizontalAlignment="Center"/>
-                <ItemsControl ItemsSource="{Binding Gigs}">
+                <TextBlock Text="Payment Details" HorizontalAlignment="Center" Margin="5"/>
+                <ItemsControl ItemsSource="{Binding Gigs}" Grid.Row="1">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <uc:GigDetailEntryControl/>
