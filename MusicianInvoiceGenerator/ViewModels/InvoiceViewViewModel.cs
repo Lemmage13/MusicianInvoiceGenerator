@@ -69,10 +69,10 @@ namespace MusicianInvoiceGenerator.ViewModels
             _endDate = new DateTime(DateTime.Now.Year + 1, 1, 1);
             _invoices = MakeInvoicesObservable(dB.GetInvoices(page, pageSize, StartDate, EndDate, paidFilter));
         }
-        private ObservableCollection<ObservableInvoice> MakeInvoicesObservable(List<Invoice> invoices)
+        private ObservableCollection<ObservableInvoice> MakeInvoicesObservable(List<StoredInvoice> invoices)
         {
             ObservableCollection<ObservableInvoice> oI = new ObservableCollection<ObservableInvoice>();
-            foreach (Invoice i in invoices)
+            foreach (StoredInvoice i in invoices)
             {
                 oI.Add(new ObservableInvoice(i));
             }

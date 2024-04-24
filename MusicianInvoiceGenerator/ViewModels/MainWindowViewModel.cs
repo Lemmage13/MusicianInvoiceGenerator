@@ -17,7 +17,7 @@ namespace MusicianInvoiceGenerator.ViewModels
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        private Invoice? invoice;
+        private StoredInvoice? invoice;
 
         private ContactEntryViewModel _senderContact;
         public ContactEntryViewModel SenderContact
@@ -95,7 +95,7 @@ namespace MusicianInvoiceGenerator.ViewModels
             _invoiceDate = DateTime.Now;
             _dueDate= InvoiceDate.AddDays(30);
         }
-        public MainWindowViewModel(Invoice i)
+        public MainWindowViewModel(StoredInvoice i)
         {
             invoice = i;
             _senderContact = new ContactEntryViewModel(invoice.SenderContact);
@@ -112,7 +112,8 @@ namespace MusicianInvoiceGenerator.ViewModels
             {
                 if(_previewInvoice == null)
                 {
-                    _previewInvoice = new RelayCommand(param => OpenPreviewWindow(), pred => CanGenerateInvoice());
+                    if(invoice != null) { _previewInvoice = new RelayCommand(param => OpenPreviewWindowModify()); return _previewInvoice; }
+                    _previewInvoice = new RelayCommand(param => OpenPreviewWindowCreate(), pred => CanGenerateInvoice());
                 }
                 return _previewInvoice;
             }
@@ -124,11 +125,27 @@ namespace MusicianInvoiceGenerator.ViewModels
             if (BankDetails.SortCode == String.Empty || BankDetails.AccountNumber == String.Empty) { return false; }
             return true;
         }
-        private void OpenPreviewWindow()
+        private void OpenPreviewWindowModify()
         {
-            bool modify = false;
-            if (invoice != null) { modify = true; }
-            InvoicePreviewViewModel prevVM = new InvoicePreviewViewModel(new Invoice(SenderContact.MakeModel(), BankDetails.MakeModel(), RecipientContact.MakeModel(), GigEntry.MakeModel(), InvoiceDate, DueDate), modify);
+            InvoicePreviewViewModel prevVM = new InvoicePreviewViewModel(UpdateStoredInvoiceValues(invoice));
+            InvoicePreviewWindow prevWindow = new InvoicePreviewWindow();
+            prevWindow.DataContext = prevVM;
+            prevWindow.Show();
+        }
+        private StoredInvoice UpdateStoredInvoiceValues(StoredInvoice i)
+        {
+            i.SenderContact = SenderContact.MakeModel((int)i.SenderContact.Id);
+            i.SenderBankDetails = BankDetails.MakeModel();
+            i.RecipientContact = RecipientContact.MakeModel((int)i.RecipientContact.Id);
+            i.Gigs = GigEntry.MakeModel();
+            i.InvoiceDate = InvoiceDate;
+            i.DueDate = DueDate;
+
+            return i;
+        }
+        private void OpenPreviewWindowCreate()
+        {
+            InvoicePreviewViewModel prevVM = new InvoicePreviewViewModel(new Invoice(SenderContact.MakeModel(), BankDetails.MakeModel(), RecipientContact.MakeModel(), GigEntry.MakeModel(), InvoiceDate, DueDate));
             InvoicePreviewWindow prevWindow = new InvoicePreviewWindow();
             prevWindow.DataContext = prevVM;
             prevWindow.Show();

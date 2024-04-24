@@ -34,18 +34,6 @@ namespace MusicianInvoiceGenerator.Models
             Paid = false;
             invoiceNo = InvoiceNumGenerator(invoiceDate);
         }
-        public Invoice(int id, ContactDetails senderContact, BankDetails senderBankDetails, ContactDetails recipientContact, List<GigModel> gigs,
-            DateTime invoiceDate, DateTime dueDate, bool paid)
-        {
-            invoiceNo = id;
-            SenderContact = senderContact;
-            SenderBankDetails = senderBankDetails;
-            RecipientContact = recipientContact;
-            Gigs = gigs;
-            InvoiceDate = invoiceDate;
-            DueDate = dueDate;
-            Paid = paid;
-        }
         private protected int InvoiceNumGenerator(DateTime iDate)
         {
             string numGen = $"{iDate.ToString("yyyy")}{iDate.ToString("MM")}{iDate.ToString("dd")}0";

@@ -24,6 +24,13 @@ namespace MusicianInvoiceGenerator.Data
             Debug.WriteLine(insertString);
             ExecuteNonQuery(insertString);
         }
+        public void UpdateInvoice(StoredInvoice i)
+        {
+            string updateString = $"UPDATE {table} SET SortCode = '{i.SenderBankDetails.SortCode}', AccountNumber = '{i.SenderBankDetails.AccountNumber}', " +
+                $"InvoiceDate = '{DateTimeToDateString(i.InvoiceDate)}', DueDate = '{DateTimeToDateString(i.DueDate)}' WHERE Id = {i.invoiceNo}";
+            Debug.WriteLine(updateString);
+            ExecuteNonQuery(updateString);
+        }
         public bool InvoiceIdAvailable(int id)
         {
             string queryString = $"SELECT COUNT(*) FROM {table} WHERE Id = {id}";
@@ -38,11 +45,11 @@ namespace MusicianInvoiceGenerator.Data
             if (count > 0) { return false; }
             return true;
         }
-        public List<Invoice> GetInvoices(InvoiceViewStringBuilder builder)
+        public List<StoredInvoice> GetInvoices(InvoiceViewStringBuilder builder)
         {
             string queryString = $"SELECT * FROM {table}" + builder.BuildQueryParametersString();
             Debug.WriteLine(queryString);
-            List<Invoice> invoices = new List<Invoice>();
+            List<StoredInvoice> invoices = new List<StoredInvoice>();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
@@ -63,17 +70,7 @@ namespace MusicianInvoiceGenerator.Data
             Debug.WriteLine (updatestring);
             ExecuteNonQuery(updatestring);
         }
-        private void ExecuteNonQuery(string cmdString)
-        {
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                SqlCommand insertCommand = new SqlCommand(cmdString, connection);
-                insertCommand.ExecuteNonQuery();
-                connection.Close();
-            }
-        }
-        private Invoice ReadInvoiceRow(IDataRecord invoiceRecord)
+        private StoredInvoice ReadInvoiceRow(IDataRecord invoiceRecord)
         {
             int id = invoiceRecord.GetInt32(0);
             ContactDetails senderContact = new ContactsDataAccess().GetContactById(invoiceRecord.GetInt32(1));
@@ -85,7 +82,7 @@ namespace MusicianInvoiceGenerator.Data
 
             List<GigModel> gigs = new GigDataAccess().GetGigByInvoice(invoiceRecord.GetInt32(0));
 
-            return new Invoice(id, senderContact, senderBankDetails, recipientContact, gigs, date, due, paid);
+            return new StoredInvoice(id, senderContact, senderBankDetails, recipientContact, gigs, date, due, paid);
         }
         private string DateTimeToDateString(DateTime d) // POSSIBLY UNNECCESSARY
         {

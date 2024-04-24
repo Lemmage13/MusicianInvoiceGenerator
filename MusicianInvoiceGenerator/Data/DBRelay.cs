@@ -36,7 +36,22 @@ namespace MusicianInvoiceGenerator.Data
             }
             Debug.WriteLine($"Invoice added, Id: {invoice.invoiceNo}");
         }
-        public List<Invoice> GetInvoices(int page, int pagesize, DateTime startDate, DateTime endDate, bool? paid)
+        public void UpdateInvoice(StoredInvoice invoice)
+        {
+            contactsDataAccess.UpdateContact((int)invoice.SenderContact.Id, invoice.SenderContact);
+            contactsDataAccess.UpdateContact((int)invoice.RecipientContact.Id, invoice.RecipientContact);
+
+            invoiceDataAccess.UpdateInvoice(invoice);
+
+            //Old gigs deleted to be replaced with modified gigs
+            gigDataAccess.DeleteInvoiceGigs(invoice.invoiceNo);
+            foreach (GigModel g in invoice.Gigs)
+            {
+                gigDataAccess.AddGig(g, invoice);
+            }
+            Debug.WriteLine("Invoice Modified,Id: " + invoice.invoiceNo);
+        }
+        public List<StoredInvoice> GetInvoices(int page, int pagesize, DateTime startDate, DateTime endDate, bool? paid)
         {
             return invoiceDataAccess.GetInvoices(new InvoiceViewStringBuilder(page, pagesize, startDate, endDate, paid));
         }

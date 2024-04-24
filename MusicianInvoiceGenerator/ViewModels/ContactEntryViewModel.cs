@@ -91,6 +91,10 @@ namespace MusicianInvoiceGenerator.ViewModels
         {
             return new ContactDetails(Name, PhoneNumber, Line1, Line2, Town, PostCode);
         }
+        public ContactDetails MakeModel(int id)
+        {
+            return new ContactDetails(id, Name, PhoneNumber, Line1, Line2, Town, PostCode);
+        }
         protected void OnPropertyChanged([CallerMemberName] string? name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));

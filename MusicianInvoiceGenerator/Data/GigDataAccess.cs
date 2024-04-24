@@ -18,13 +18,20 @@ namespace MusicianInvoiceGenerator.Data
             string insertString = "INSERT INTO Gigs (InvoiceId, Details, Rate) VALUES " +
                 $"({i.invoiceNo},'{g.Details}',{g.Rate})";
             Debug.WriteLine(insertString);
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                SqlCommand insertCommand = new SqlCommand(insertString, connection);
-                insertCommand.ExecuteNonQuery();
-                connection.Close();
-            }
+            ExecuteNonQuery(insertString);
+        }
+        public void DeleteInvoiceGigs(int id)
+        {
+            string deleteString = $"DELETE FROM {table} WHERE InvoiceId = '{id}'";
+            Debug.WriteLine(deleteString);
+            ExecuteNonQuery(deleteString);
+        }
+        public void UpdateGig(int id, GigModel g)
+        {
+            string updateString = $"UPDATE {table} SET Details = '{g.Details}', Rate = '{g.Rate}' " +
+                $"WHERE Id = '{g.id}'";
+            Debug.WriteLine(updateString);
+            ExecuteNonQuery(updateString);
         }
         public List<GigModel> GetGigByInvoice(int id)
         {
@@ -48,7 +55,7 @@ namespace MusicianInvoiceGenerator.Data
         }
         private GigModel ReadGigRow(IDataRecord gigRecord)
         {
-            return new GigModel(gigRecord.GetString(2), gigRecord.GetDecimal(3));
+            return new GigModel(gigRecord.GetInt32(0), gigRecord.GetString(2), gigRecord.GetDecimal(3));
         }
     }
 }

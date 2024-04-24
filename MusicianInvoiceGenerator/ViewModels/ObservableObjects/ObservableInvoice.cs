@@ -9,22 +9,26 @@ using System.Runtime.CompilerServices;
 using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using System.Diagnostics;
+using MusicianInvoiceGenerator.ViewModels.Commands;
+using MusicianInvoiceGenerator.Views;
 
 namespace MusicianInvoiceGenerator.ViewModels.ObservableObjects
 {
     public class ObservableInvoice : ObservableObject
     {
-        
-
-        public ObservableInvoice(Invoice i)
+        private StoredInvoice invoice;
+        public ObservableInvoice(StoredInvoice i)
         {
+            invoice = i;
             _invoiceNumber = i.invoiceNo;
             _senderContact = new ObservableContact(i.SenderContact);
             _sortCode = i.SenderBankDetails.SortCode;
             _accountNumber = i.SenderBankDetails.AccountNumber;
             _recipientContact = new ObservableContact(i.RecipientContact);
             _gigs = new ObservableCollection<ObservableGig>();
-            foreach(GigModel g in i.Gigs)
+            foreach (GigModel g in  i.Gigs)
             {
                 _gigs.Add(new ObservableGig(g));
             }
@@ -32,7 +36,6 @@ namespace MusicianInvoiceGenerator.ViewModels.ObservableObjects
             _due = i.DueDate;
             _paid = i.Paid;
         }
-
         private int _invoiceNumber;
         public string InvoiceNumber
         {
@@ -72,7 +75,7 @@ namespace MusicianInvoiceGenerator.ViewModels.ObservableObjects
         private DateTime _date;
         public DateTime Date
         {
-            get { return _date; }
+            get {  return _date; }
             set { _date = value; OnPropertyChanged(nameof(Date)); }
         }
         private DateTime _due;
@@ -86,6 +89,43 @@ namespace MusicianInvoiceGenerator.ViewModels.ObservableObjects
         {
             get { return _paid; }
             set { _paid = value; UpdateInvoicePaid(); OnPropertyChanged(nameof(Paid)); OnPropertyChanged(nameof(PaidState)); }
+        }
+        private ICommand? _modifyCmd;
+        public ICommand ModifyCmd
+        {
+            get
+            {
+                if (_modifyCmd == null)
+                {
+                    _modifyCmd = new RelayCommand(param => ModifyInvoice());
+                }
+                return _modifyCmd;
+            }
+        }
+        private ICommand? _deleteCmd;
+        public ICommand DeleteCmd
+        {
+            get
+            {
+                if (_deleteCmd == null)
+                {
+                    _deleteCmd = new RelayCommand(param => DeleteInvoice());
+                }
+                return _deleteCmd;
+            }
+        }
+        private void ModifyInvoice()
+        {
+            Debug.WriteLine("Modify " + InvoiceNumber);
+            MainWindowViewModel vm = new MainWindowViewModel(invoice);
+            MainWindow w = new MainWindow();
+            w.DataContext = vm;
+            w.Show();
+        }
+        private void DeleteInvoice()
+        {
+            Debug.WriteLine("Delete " + InvoiceNumber);
+            throw new NotImplementedException();
         }
         private void UpdateInvoicePaid()
         {

@@ -8,6 +8,7 @@ namespace MusicianInvoiceGenerator.Models
 {
     public class GigModel
     {
+        public int? id;
         public string Details;
         public decimal Rate;
 
@@ -15,6 +16,12 @@ namespace MusicianInvoiceGenerator.Models
         {
             Details = details;
             Rate = rate;
+        }
+        public GigModel(int id, string details, decimal rate)
+        {
+            this.id = id;
+            this.Details = details;
+            this.Rate = rate;
         }
     }
 }

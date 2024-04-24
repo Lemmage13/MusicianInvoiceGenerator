@@ -30,5 +30,15 @@ namespace MusicianInvoiceGenerator.Data
             }
             return count;
         }
+        protected void ExecuteNonQuery(string cmdString)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand insertCommand = new SqlCommand(cmdString, connection);
+                insertCommand.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
     }
 }

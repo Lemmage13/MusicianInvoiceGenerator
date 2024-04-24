@@ -57,10 +57,13 @@
                         <DataGridTextColumn IsReadOnly="True" Header="Date" Binding="{Binding Path=Due, StringFormat={}{0:dd/MM/yyyy}}"/>
                         <DataGridTextColumn IsReadOnly="True" Header="Rate" Binding="{Binding Path=TotalRate, StringFormat=C, ConverterCulture='en-GB'}"/>
                         <DataGridCheckBoxColumn IsReadOnly="False" Header="Paid" Binding="{Binding Path=Paid}"/>
-                        <DataGridTemplateColumn Header="Manage">
+                        <DataGridTemplateColumn Header="Manage" CanUserSort="False">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Content="Manage"/>
+                                    <ComboBox IsReadOnly="True" IsEditable="False">
+                                        <Button Content="Modify" Command="{Binding ModifyCmd}"/>
+                                        <Button Content="Delete" Command="{Binding DeleteCmd}"/>
+                                    </ComboBox>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>

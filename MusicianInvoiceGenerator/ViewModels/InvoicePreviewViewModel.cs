@@ -13,6 +13,7 @@ using MusicianInvoiceGenerator.ViewModels.Commands;
 using MusicianInvoiceGenerator.ViewModels.Functionality;
 using MusicianInvoiceGenerator.Data;
 using System;
+using System.Diagnostics;
 
 namespace MusicianInvoiceGenerator.ViewModels
 {
@@ -20,12 +21,10 @@ namespace MusicianInvoiceGenerator.ViewModels
     {
 
         public event PropertyChangedEventHandler? PropertyChanged;
-        private bool modifyExistingInvoice;
 
         //invoice object exposed as variables for invoice display
         public Invoice Invoice { get; set; }
-
-        public InvoicePreviewViewModel(Invoice i, bool modify)
+        public InvoicePreviewViewModel(Invoice i)
         {
             Invoice = i;
             _invoiceNumber = Invoice.invoiceNo;
@@ -52,7 +51,8 @@ namespace MusicianInvoiceGenerator.ViewModels
             _gigList = GetGigTxts(Invoice);
             _rateTotal = GetTotalRate(Invoice);
 
-            modifyExistingInvoice = modify;
+            if(i.GetType() == typeof(StoredInvoice)) { _modify = true; Debug.WriteLine("Modifying invoice"); }
+            else { _modify = false; }
         }
         private string GetTotalRate(Invoice i)
         {
@@ -74,6 +74,12 @@ namespace MusicianInvoiceGenerator.ViewModels
         }
 
         #region Invoice Details
+        private bool _modify;
+        public bool Modify
+        {
+            get { return _modify; }
+            set { _modify = value; OnPropertyChanged(nameof(Modify)); }
+        }
         //invoice details
         private int _invoiceNumber;
         public int InvoiceNumber
@@ -399,12 +405,16 @@ namespace MusicianInvoiceGenerator.ViewModels
                 new DBRelay().SaveInvoice(Invoice);
                 //open doc viewer window for generated invoice
                 OpenInvoiceDocViewer();
-                //close MainWindow and PreviewWindow
+                //close MainWindow and PreviewWindow TBA (possibly not here)
             }
         }
         private void ModifyInvoice()
         {
-            throw new NotImplementedException();
+            //must implement modify method
+            if (MessageBox.Show("Are you sure all details in the invoice are correct?", "Are you sure?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                new DBRelay().UpdateInvoice((StoredInvoice)Invoice);
+            }
         }
         private void OpenInvoiceDocViewer()
         {

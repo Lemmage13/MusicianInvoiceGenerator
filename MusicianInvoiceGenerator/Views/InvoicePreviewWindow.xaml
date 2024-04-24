@@ -8,6 +8,8 @@
         xmlns:uc="clr-namespace:MusicianInvoiceGenerator.Views.Controls"
         mc:Ignorable="d"
         Title="InvoicePreviewWindow" Height="600" Width="800">
+    <Window.Resources>
+    </Window.Resources>
     <ScrollViewer>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -27,7 +29,22 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Button Content="View as Document" FontSize="15" Grid.Column="0" Margin="5" Command="{Binding OpenInvoiceDoc}"/>
-                <Button Content="Save Invoice" FontSize="15" Grid.Column="1" Margin="5" Command="{Binding SaveInvoiceCmd}"/>
+                <Button FontSize="15" Grid.Column="1" Margin="5">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Modify}" Value="True">
+                                    <Setter Property="Content" Value="Save Modifications"/>
+                                    <Setter Property="Command" Value="{Binding ModifyInvoiceCmd}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Modify}" Value="False">
+                                    <Setter Property="Content" Value="Save Invoice"/>
+                                    <Setter Property="Command" Value="{Binding SaveInvoiceCmd}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
             </Grid>
         </Grid>
     </ScrollViewer>

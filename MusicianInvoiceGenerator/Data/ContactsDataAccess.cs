@@ -37,6 +37,13 @@ namespace MusicianInvoiceGenerator.Data
             }
             return id;
         }
+        public void UpdateContact(int id, ContactDetails c)
+        {
+            string updateString = $"UPDATE {table} SET Name = '{c.Name}', PhoneNumber = '{c.PhoneNumber}', AddrsL1 = '{c.Line1}', " +
+                $"AddrsL2 = '{c.Line2}', AddrsTown = '{c.Town}', AddrsPostCode = '{c.Postcode}' WHERE Id = '{id}'";
+            Debug.WriteLine(updateString);
+            ExecuteNonQuery(updateString);
+        }
         public int? FindContact(ContactDetails c)
         {
             string selectString = $"SELECT TOP 1 Id FROM {table} WHERE " +
