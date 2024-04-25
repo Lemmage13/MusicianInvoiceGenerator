@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace MusicianInvoiceGenerator.ViewModels.ObservableObjects
 {
+    //ObservableGig takes a contactdetails object and exposes it for views using propertychanged calls
     public class ObservableGig : ObservableObject
     {
         public ObservableGig(GigModel g) 

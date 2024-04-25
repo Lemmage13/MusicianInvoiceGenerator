@@ -19,6 +19,8 @@ namespace MusicianInvoiceGenerator.ViewModels.ObservableObjects
 {
     public class ObservableInvoice : ObservableObject
     {
+        //ObservableInvoice exposes invoice variables to the view layer
+        //Also contains functions/commands that allow the view layer to be used by the user to interact with the database in a clear way
         private StoredInvoice invoice;
         public ObservableInvoice(StoredInvoice i)
         {

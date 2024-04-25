@@ -4,6 +4,7 @@ namespace MusicianInvoiceGenerator.ViewModels.ObservableObjects
 {
     public class ObservableContact : ObservableObject
     {
+        //ObservableContact takes a contactdetails object and exposes it for views using propertychanged calls
         public ObservableContact(ContactDetails c) 
         {
             _name = c.Name;

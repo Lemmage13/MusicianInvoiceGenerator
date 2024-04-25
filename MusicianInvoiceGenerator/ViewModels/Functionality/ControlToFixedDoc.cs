@@ -12,6 +12,8 @@ namespace MusicianInvoiceGenerator.ViewModels.Functionality
 {
     public class ControlToFixedDoc
     {
+        //Small class to handle the conversion of the preview user control to an XPS document format, which the wpf Docviewer allows to print to PDF
+
         double pageWidth = 96 * 8.5;
         double pageHeight = 96 * 11;
         double margin = 32;

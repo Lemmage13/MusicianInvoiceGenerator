@@ -10,6 +10,7 @@ namespace MusicianInvoiceGenerator.ViewModels.ObservableObjects
 {
     public class ObservableObject : INotifyPropertyChanged
     {
+        //base observable object class can be inherited from to tidy up other observable objects of the below boilerplate
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string? name = null)
         {
