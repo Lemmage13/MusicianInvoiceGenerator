@@ -2,6 +2,8 @@
 {
     public class ContactDetails
     {
+        //ContactDetails is an object representing contact details for either the sender or recipient of an invoice
+
         public int? Id;
         public string Name;
         public string PhoneNumber;
