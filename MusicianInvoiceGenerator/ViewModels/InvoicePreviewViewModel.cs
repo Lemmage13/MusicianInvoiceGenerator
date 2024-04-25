@@ -19,6 +19,10 @@ namespace MusicianInvoiceGenerator.ViewModels
 {
     class InvoicePreviewViewModel : INotifyPropertyChanged
     {
+        //This is a viewmodel that exposes properties from an associated invoice model for viewing as part of an invoice preview
+        //It is responsible for exposing the required variables, and producing other variables that are required to be displayed on the invoice PDF
+        //Also contains methods to modify the invoice based on the preview, or to save the invoice, both on user input (if the previewed invoice is acceptable)
+        //This class binds to a control that defines the appearance of the invoice on the PDF
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -387,6 +391,7 @@ namespace MusicianInvoiceGenerator.ViewModels
                 OnPropertyChanged(nameof(RateTotal));
             }
         }
+        //Save vs modify invoice command binding is determined by a datatrigger in the view
         private ICommand? _saveInvoiceCmd;
         public ICommand SaveInvoiceCmd
         {
@@ -424,6 +429,7 @@ namespace MusicianInvoiceGenerator.ViewModels
             }
         }
         #region Methods
+        //Saves invoice that is being previewed - calls dataRelay class to manage data access so that tables are added to in the right order
         private void SaveInvoice()
         {
             if (MessageBox.Show("Are you sure all details in the invoice are correct?", "Are you sure?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
@@ -436,14 +442,15 @@ namespace MusicianInvoiceGenerator.ViewModels
                 //close MainWindow and PreviewWindow TBA (possibly not here)
             }
         }
+        //modifies the invoice that is being viewed - calls datarelay class to manage database modification
         private void ModifyInvoice()
         {
-            //must implement modify method
             if (MessageBox.Show("Are you sure all details in the invoice are correct?", "Are you sure?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 new DBRelay().UpdateInvoice((StoredInvoice)Invoice);
             }
         }
+        //opens window with a docviewer so that the invoice can be seen in document format (and possibly printed to pdf)
         private void OpenInvoiceDocViewer()
         {
             DocViewWindow DocView = new DocViewWindow();

@@ -11,6 +11,10 @@ namespace MusicianInvoiceGenerator.ViewModels
 {
     public class InvoiceViewViewModel : INotifyPropertyChanged
     {
+        //This viewmodel is responsible for fetching and exposing database entries for viewing, modifying, and deleting
+        //it is designed to only load 10 invoices at a time for pagination of the view
+
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
         DBRelay dB = new DBRelay();
@@ -62,6 +66,7 @@ namespace MusicianInvoiceGenerator.ViewModels
         int page;
         int pageSize = 10;
 
+        //default values display first 10 invoices from current year
         public InvoiceViewViewModel()
         {
             page = 1;
@@ -69,6 +74,7 @@ namespace MusicianInvoiceGenerator.ViewModels
             _endDate = new DateTime(DateTime.Now.Year + 1, 1, 1);
             _invoices = MakeInvoicesObservable(dB.GetInvoices(page, pageSize, StartDate, EndDate, paidFilter));
         }
+        //converts StoredInvoice objects retrieved from the database to observable to expose their variables
         private ObservableCollection<ObservableInvoice> MakeInvoicesObservable(List<StoredInvoice> invoices)
         {
             ObservableCollection<ObservableInvoice> oI = new ObservableCollection<ObservableInvoice>();
@@ -78,6 +84,7 @@ namespace MusicianInvoiceGenerator.ViewModels
             }
             return oI;
         }
+        //regenerates current page of invoices to update values to represent the database
         protected void UpdateInvoices()
         {
             Invoices = MakeInvoicesObservable(dB.GetInvoices(page,pageSize,StartDate,EndDate,paidFilter));

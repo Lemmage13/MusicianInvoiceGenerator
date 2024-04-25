@@ -7,6 +7,8 @@ namespace MusicianInvoiceGenerator.ViewModels
 {
     class BankDetailEntryViewModel : INotifyPropertyChanged
     {
+        //This is a viewmodel that connects to a control that can display/modify bank detail information
+        //It also can take this information and use it to make a model class of the corresponding type
         public event PropertyChangedEventHandler? PropertyChanged;
 
         private string _sortCode;

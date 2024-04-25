@@ -13,6 +13,8 @@ using System.Diagnostics;
 
 namespace MusicianInvoiceGenerator.ViewModels
 {
+    //the MainWindow is the window that allows the user to enter valuse to create a new invoice, or modify the values of an existing one
+
     class MainWindowViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -118,6 +120,7 @@ namespace MusicianInvoiceGenerator.ViewModels
                 return _previewInvoice;
             }
         }
+        //used as condition for the preview invoice button
         private bool CanGenerateInvoice()
         {
             if (SenderContact.Name == String.Empty) { return false; }
@@ -125,6 +128,7 @@ namespace MusicianInvoiceGenerator.ViewModels
             if (BankDetails.SortCode == String.Empty || BankDetails.AccountNumber == String.Empty) { return false; }
             return true;
         }
+        //opens preview window with parameters for modification of an existing invoice
         private void OpenPreviewWindowModify()
         {
             InvoicePreviewViewModel prevVM = new InvoicePreviewViewModel(UpdateStoredInvoiceValues(invoice), 1);
@@ -132,6 +136,7 @@ namespace MusicianInvoiceGenerator.ViewModels
             prevWindow.DataContext = prevVM;
             prevWindow.Show();
         }
+        //changes a StoredInvoice to take the new values defined by the user
         private StoredInvoice UpdateStoredInvoiceValues(StoredInvoice i)
         {
             i.SenderContact = SenderContact.MakeModel((int)i.SenderContact.Id);
@@ -143,6 +148,7 @@ namespace MusicianInvoiceGenerator.ViewModels
 
             return i;
         }
+        //opens previewwindow with parameters to create a new invoice
         private void OpenPreviewWindowCreate()
         {
             InvoicePreviewViewModel prevVM = new InvoicePreviewViewModel(new Invoice(SenderContact.MakeModel(), BankDetails.MakeModel(), RecipientContact.MakeModel(), GigEntry.MakeModel(), InvoiceDate, DueDate));

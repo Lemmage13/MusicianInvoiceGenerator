@@ -15,6 +15,8 @@ using System.Windows.Input;
 
 namespace MusicianInvoiceGenerator.ViewModels
 {
+    //This is a viewmodel that connects to a control that can display/modify gig information
+    //It also can take this information and use it to make a list of model objects of the corresponding type
     public class GigEntryViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;

@@ -129,6 +129,7 @@ namespace MusicianInvoiceGenerator.ViewModels.ObservableObjects
                 return _viewCmd;
             }
         }
+        //opens Mainwindow with new viewmodel to allow user to modify invoice details
         private void ModifyInvoice()
         {
             Debug.WriteLine("Modify " + InvoiceNumber);
@@ -137,6 +138,7 @@ namespace MusicianInvoiceGenerator.ViewModels.ObservableObjects
             w.DataContext = vm;
             w.Show();
         }
+        //prompts user whether they want to delete the invoice, if so, uses DBRelay method to ensure it is done in the correct order/without deleting foreign keys
         private void DeleteInvoice()
         {
             Debug.WriteLine("Delete " + InvoiceNumber);
@@ -145,6 +147,7 @@ namespace MusicianInvoiceGenerator.ViewModels.ObservableObjects
                 new DBRelay().DeleteInvoice(invoice);
             }
         }
+        //opens InvoicePreviewWindow with parameters in viewmodel to disable save button
         private void ViewInvoice()
         {
             Debug.WriteLine("View " + InvoiceNumber);

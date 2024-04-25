@@ -11,6 +11,10 @@ namespace MusicianInvoiceGenerator.ViewModels
 {
     class MainMenuViewModel
     {
+        //This viewmodel contains logic for opening other windows from the main menu, as well as any other functionality the main menu will require
+
+        //MainWindow being opened here will be opened empty for values to be input by the user to generate a new invoice
+        // MainWindow -> InvoicePreviewWindow -> save invoice and DocViewerWindow
         private void OpenMainWindow()
         {
             MainWindowViewModel vm = new MainWindowViewModel();
@@ -46,6 +50,11 @@ namespace MusicianInvoiceGenerator.ViewModels
                 return _openSettingsCmd;
             }
         }
+        //InvoiceView will show a list of invoices in a datagrid, they each have buttons to delete/modify/view
+        //View: InvoiceViewWindow -> InvoicePreviewWindow (no option to save/modify)
+        //Modify: InvoiceViewWindow -> MainWindow -> InvoicePreviewWindow -> update database and DocViewerWindow
+        //Delete: MessageBox -> delete invoice from database
+        //see ObservableInvoice for more details
         private void OpenInvoiceView()
         {
             InvoiceViewViewModel vm = new InvoiceViewViewModel();
