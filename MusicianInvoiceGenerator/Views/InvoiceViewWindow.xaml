@@ -56,7 +56,7 @@
                         <DataGridTextColumn IsReadOnly="True" Header="Date" Binding="{Binding Path=Date, StringFormat={}{0:dd/MM/yyyy}}"/>
                         <DataGridTextColumn IsReadOnly="True" Header="Date" Binding="{Binding Path=Due, StringFormat={}{0:dd/MM/yyyy}}"/>
                         <DataGridTextColumn IsReadOnly="True" Header="Rate" Binding="{Binding Path=TotalRate, StringFormat=C, ConverterCulture='en-GB'}"/>
-                        <DataGridCheckBoxColumn IsReadOnly="False" Header="Paid" Binding="{Binding Path=Paid}"/>
+                        <DataGridCheckBoxColumn IsReadOnly="False" Header="Paid" Binding="{Binding Path=Paid, UpdateSourceTrigger=PropertyChanged}"/>
                         <DataGridTemplateColumn Header="Manage" CanUserSort="False">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
