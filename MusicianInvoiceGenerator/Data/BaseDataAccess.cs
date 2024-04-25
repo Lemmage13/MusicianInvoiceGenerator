@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,6 +30,12 @@ namespace MusicianInvoiceGenerator.Data
                 connection.Close();
             }
             return count;
+        }
+        public void DeleteEntry(int id)
+        {
+            string deleteString = $"DELETE FROM {table} WHERE Id = '{id}'";
+            Debug.WriteLine(deleteString);
+            ExecuteNonQuery(deleteString);
         }
         protected void ExecuteNonQuery(string cmdString)
         {

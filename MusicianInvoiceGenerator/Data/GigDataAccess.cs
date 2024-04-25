@@ -20,9 +20,9 @@ namespace MusicianInvoiceGenerator.Data
             Debug.WriteLine(insertString);
             ExecuteNonQuery(insertString);
         }
-        public void DeleteInvoiceGigs(int id)
+        public void DeleteInvoiceGigs(int iid)
         {
-            string deleteString = $"DELETE FROM {table} WHERE InvoiceId = '{id}'";
+            string deleteString = $"DELETE FROM {table} WHERE InvoiceId = '{iid}'";
             Debug.WriteLine(deleteString);
             ExecuteNonQuery(deleteString);
         }

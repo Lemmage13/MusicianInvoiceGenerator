@@ -51,8 +51,36 @@ namespace MusicianInvoiceGenerator.ViewModels
             _gigList = GetGigTxts(Invoice);
             _rateTotal = GetTotalRate(Invoice);
 
-            if(i.GetType() == typeof(StoredInvoice)) { _modify = true; Debug.WriteLine("Modifying invoice"); }
-            else { _modify = false; }
+            _modify = 0;
+        }
+        public InvoicePreviewViewModel(StoredInvoice i, int mod)
+        {
+            Invoice = i;
+            _invoiceNumber = Invoice.invoiceNo;
+            _invoiceDate = Invoice.InvoiceDate.ToString("dd/MM/yyyy");
+            _dueDate = Invoice.DueDate.ToString("dd/MM/yyyy");
+
+            _senderName = Invoice.SenderContact.Name;
+            _senderPhoneNo = Invoice.SenderContact.PhoneNumber;
+            _senderL1 = Invoice.SenderContact.Line1;
+            _senderL2 = Invoice.SenderContact.Line2;
+            _senderTown = Invoice.SenderContact.Town;
+            _senderPostcode = Invoice.SenderContact.Postcode;
+
+            _recipientName = Invoice.RecipientContact.Name;
+            _recipientPhoneNo = Invoice.RecipientContact.PhoneNumber;
+            _recipientTown = Invoice.RecipientContact.Town;
+            _recipientL1 = Invoice.RecipientContact.Line1;
+            _recipientL2 = Invoice.RecipientContact.Line2;
+            _recipientPostcode = Invoice.RecipientContact.Postcode;
+
+            _sortCode = Invoice.SenderBankDetails.SortCode;
+            _accountNumber = Invoice.SenderBankDetails.AccountNumber;
+
+            _gigList = GetGigTxts(Invoice);
+            _rateTotal = GetTotalRate(Invoice);
+
+            _modify = mod; //0 for save invoice, 1 for no modifications, 2 for save modifications
         }
         private string GetTotalRate(Invoice i)
         {
@@ -74,8 +102,8 @@ namespace MusicianInvoiceGenerator.ViewModels
         }
 
         #region Invoice Details
-        private bool _modify;
-        public bool Modify
+        private int _modify;
+        public int Modify
         {
             get { return _modify; }
             set { _modify = value; OnPropertyChanged(nameof(Modify)); }

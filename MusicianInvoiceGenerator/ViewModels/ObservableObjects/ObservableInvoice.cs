@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Diagnostics;
 using MusicianInvoiceGenerator.ViewModels.Commands;
 using MusicianInvoiceGenerator.Views;
+using System.Windows;
 
 namespace MusicianInvoiceGenerator.ViewModels.ObservableObjects
 {
@@ -114,6 +115,18 @@ namespace MusicianInvoiceGenerator.ViewModels.ObservableObjects
                 return _deleteCmd;
             }
         }
+        private ICommand? _viewCmd;
+        public ICommand ViewCmd
+        {
+            get
+            {
+                if( _viewCmd == null)
+                {
+                    _viewCmd = new RelayCommand(param => ViewInvoice());
+                }
+                return _viewCmd;
+            }
+        }
         private void ModifyInvoice()
         {
             Debug.WriteLine("Modify " + InvoiceNumber);
@@ -125,7 +138,18 @@ namespace MusicianInvoiceGenerator.ViewModels.ObservableObjects
         private void DeleteInvoice()
         {
             Debug.WriteLine("Delete " + InvoiceNumber);
-            throw new NotImplementedException();
+            if(MessageBox.Show("Are you sure you want to delete this invoice? It cannot be undone!", "Warning", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                new DBRelay().DeleteInvoice(invoice);
+            }
+        }
+        private void ViewInvoice()
+        {
+            Debug.WriteLine("View " + InvoiceNumber);
+            InvoicePreviewViewModel prevVM = new InvoicePreviewViewModel(invoice, 2);
+            InvoicePreviewWindow prevWindow = new InvoicePreviewWindow();
+            prevWindow.DataContext = prevVM;
+            prevWindow.Show();
         }
         private void UpdateInvoicePaid()
         {

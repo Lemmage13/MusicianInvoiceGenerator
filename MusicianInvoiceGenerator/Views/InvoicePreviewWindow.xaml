@@ -33,13 +33,16 @@
                     <Button.Style>
                         <Style TargetType="Button">
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding Modify}" Value="True">
+                                <DataTrigger Binding="{Binding Modify}" Value="1">
                                     <Setter Property="Content" Value="Save Modifications"/>
                                     <Setter Property="Command" Value="{Binding ModifyInvoiceCmd}"/>
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding Modify}" Value="False">
+                                <DataTrigger Binding="{Binding Modify}" Value="0">
                                     <Setter Property="Content" Value="Save Invoice"/>
                                     <Setter Property="Command" Value="{Binding SaveInvoiceCmd}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Modify}" Value="2">
+                                    <Setter Property="IsEnabled" Value="False"/>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>

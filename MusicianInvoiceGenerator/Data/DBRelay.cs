@@ -51,6 +51,27 @@ namespace MusicianInvoiceGenerator.Data
             }
             Debug.WriteLine("Invoice Modified,Id: " + invoice.invoiceNo);
         }
+        public void DeleteInvoice(StoredInvoice invoice)
+        {
+            gigDataAccess.DeleteInvoiceGigs(invoice.invoiceNo);
+
+            invoiceDataAccess.DeleteEntry(invoice.invoiceNo);
+
+            if(CanDeleteContact((int)invoice.SenderContact.Id, invoice.invoiceNo)) { contactsDataAccess.DeleteEntry((int)invoice.SenderContact.Id); }
+            if (CanDeleteContact((int)invoice.RecipientContact.Id, invoice.invoiceNo)) { contactsDataAccess.DeleteEntry((int)invoice.RecipientContact.Id); }
+        }
+        private bool CanDeleteContact(int cid, int iid)
+        {
+            List<int> ids = invoiceDataAccess.GetIdsUsingContact(cid);
+            foreach (int id in ids)
+            {
+                if(id != iid)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
         public List<StoredInvoice> GetInvoices(int page, int pagesize, DateTime startDate, DateTime endDate, bool? paid)
         {
             return invoiceDataAccess.GetInvoices(new InvoiceViewStringBuilder(page, pagesize, startDate, endDate, paid));

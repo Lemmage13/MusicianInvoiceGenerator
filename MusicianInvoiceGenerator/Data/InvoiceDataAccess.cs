@@ -64,6 +64,24 @@ namespace MusicianInvoiceGenerator.Data
             }
             return invoices;
         }
+        public List<int> GetIdsUsingContact(int cid)
+        {
+            string queryString = $"SELECT Id FROM {table} WHERE SenderContactId = '{cid}' OR RecipientContactId = '{cid}'";
+            Debug.WriteLine(queryString);
+            List<int> ids = new List<int>();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand cmd = new SqlCommand(queryString , connection);
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ids.Add(reader.GetInt32(0));
+                }
+                connection.Close();
+            }
+            return ids;
+        }
         public void UpdatePaid(int id, bool p)
         {
             string updatestring = $"UPDATE {table} SET Paid = '{Convert.ToInt16(p)}' WHERE Id = '{id}'";

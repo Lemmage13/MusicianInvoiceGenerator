@@ -127,7 +127,7 @@ namespace MusicianInvoiceGenerator.ViewModels
         }
         private void OpenPreviewWindowModify()
         {
-            InvoicePreviewViewModel prevVM = new InvoicePreviewViewModel(UpdateStoredInvoiceValues(invoice));
+            InvoicePreviewViewModel prevVM = new InvoicePreviewViewModel(UpdateStoredInvoiceValues(invoice), 1);
             InvoicePreviewWindow prevWindow = new InvoicePreviewWindow();
             prevWindow.DataContext = prevVM;
             prevWindow.Show();
