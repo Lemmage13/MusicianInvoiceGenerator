@@ -49,3 +49,5 @@ C:\Users\matth\source\repos\MusicianInvoiceGenerator\MusicianInvoiceGenerator\ob
 C:\Users\matth\source\repos\MusicianInvoiceGenerator\MusicianInvoiceGenerator\obj\Debug\net6.0-windows\Views\MainMenu.baml
 C:\Users\matth\source\repos\MusicianInvoiceGenerator\MusicianInvoiceGenerator\obj\Debug\net6.0-windows\Views\InvoiceViewWindow.g.cs
 C:\Users\matth\source\repos\MusicianInvoiceGenerator\MusicianInvoiceGenerator\obj\Debug\net6.0-windows\Views\InvoiceViewWindow.baml
+C:\Users\matth\source\repos\MusicianInvoiceGenerator\MusicianInvoiceGenerator\obj\Debug\net6.0-windows\Views\Dialogues\SelectContactDialogue.g.cs
+C:\Users\matth\source\repos\MusicianInvoiceGenerator\MusicianInvoiceGenerator\obj\Debug\net6.0-windows\Views\Dialogues\SelectContactDialogue.baml

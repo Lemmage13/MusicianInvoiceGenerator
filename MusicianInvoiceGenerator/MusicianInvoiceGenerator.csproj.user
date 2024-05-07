@@ -27,6 +27,9 @@
     <Compile Update="Views\DebugWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Dialogues\SelectContactDialogue.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\DocViewWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -57,6 +60,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\DebugWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Dialogues\SelectContactDialogue.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\DocViewWindow.xaml">

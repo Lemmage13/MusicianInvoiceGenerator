@@ -14,6 +14,10 @@ namespace MusicianInvoiceGenerator.ViewModels.ObservableObjects
             _town = c.Town;
             _postCode = c.Postcode;
         }
+        public ContactDetails ToContact()
+        {
+            return new ContactDetails(Name, PhoneNumber, Line1, Line2, Town, PostCode);
+        }
         private string _name;
         public string Name
         {

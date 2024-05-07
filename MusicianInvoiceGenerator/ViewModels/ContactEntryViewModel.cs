@@ -82,12 +82,22 @@ namespace MusicianInvoiceGenerator.ViewModels
         }
         public ContactEntryViewModel(ContactDetails c)
         {
-            _name = c.Name;
-            _phoneNumber = c.PhoneNumber;
-            _line1 = c.Line1;
-            _line2 = c.Line2;
-            _town = c.Town;
-            _postCode = c.Postcode;
+                _name = c.Name;
+                _phoneNumber = c.PhoneNumber;
+                _line1 = c.Line1;
+                _line2 = c.Line2;
+                _town = c.Town;
+                _postCode = c.Postcode;
+        }
+        public void FillFrom(ContactDetails? c)
+        {
+            if (c == null) { return; }
+            Name = c.Name;
+            PhoneNumber = c.PhoneNumber;
+            Line1 = c.Line1;
+            Line2 = c.Line2;
+            Town = c.Town;
+            PostCode = c.Postcode;
         }
         public ContactDetails MakeModel()
         {

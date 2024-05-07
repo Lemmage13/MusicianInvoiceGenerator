@@ -39,7 +39,10 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Text="Personal Details" HorizontalAlignment="Center"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Personal Details" Margin="20,5,20,5"/>
+                        <Button Content="Fill From Contacts" Command="{Binding OpenAddressBook}" CommandParameter="{Binding SenderContact}"/>
+                    </StackPanel>
                     <Grid Grid.Row="1" DataContext="{Binding SenderContact}">
                         <uc:ContactEntryControl Margin="5,5,5,5"/>
                     </Grid>
@@ -56,7 +59,10 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Text="Recipient Details" HorizontalAlignment="Center"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Recipient Details" Margin="20,5,20,5"/>
+                        <Button Content="Fill From Contacts" Command="{Binding OpenAddressBook}" CommandParameter="{Binding RecipientContact}"/>
+                    </StackPanel>
                     <Grid Grid.Row="1" DataContext="{Binding RecipientContact}">
                         <uc:ContactEntryControl Margin="5,5,5,5"/>
                     </Grid>

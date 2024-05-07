@@ -10,6 +10,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Diagnostics;
+using System.Windows.Controls;
+using System.Transactions;
+using System.Windows;
+using MusicianInvoiceGenerator.Views.Dialogues;
 
 namespace MusicianInvoiceGenerator.ViewModels
 {
@@ -155,6 +159,25 @@ namespace MusicianInvoiceGenerator.ViewModels
             InvoicePreviewWindow prevWindow = new InvoicePreviewWindow();
             prevWindow.DataContext = prevVM;
             prevWindow.Show();
+        }
+        private ICommand _openAddressBook;
+        public ICommand OpenAddressBook
+        {
+            get
+            {
+                _openAddressBook = new RelayCommand(param => OpenContactDialogue((ContactEntryViewModel)param));
+                return _openAddressBook;
+            }
+        }
+        private void OpenContactDialogue(ContactEntryViewModel cevm)
+        {
+            SelectContactDialogue scd = new SelectContactDialogue();
+            ContactsBookViewModel scvm = new ContactsBookViewModel();
+            scd.DataContext = scvm;
+            if ((bool)scd.ShowDialog())
+            {
+                cevm.FillFrom(scvm.Selected.ToContact());
+            }
         }
         protected void OnPropertyChanged([CallerMemberName] string? name = null)
         {

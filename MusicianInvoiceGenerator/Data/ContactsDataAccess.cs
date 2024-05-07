@@ -87,6 +87,25 @@ namespace MusicianInvoiceGenerator.Data
             }
             return cd;
         }
+        public List<ContactDetails> GetContacts()
+        {
+            string queryString = $"SELECT * FROM {table}";
+            List<ContactDetails> cds = new List<ContactDetails>();
+            Debug.WriteLine(queryString);
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand sqlCommand = new SqlCommand(queryString, connection);
+                SqlDataReader reader = sqlCommand.ExecuteReader();
+                while(reader.Read())
+                {
+                    cds.Add(ReadContactRow(reader));
+                }
+                reader.Close();
+                connection.Close();
+            }
+            return cds;
+        }
         private ContactDetails ReadContactRow(IDataRecord contactRecord)
         {
             return new ContactDetails(contactRecord.GetInt32(0), contactRecord.GetString(1), contactRecord.GetString(2),
