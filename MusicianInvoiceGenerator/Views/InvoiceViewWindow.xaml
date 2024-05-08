@@ -6,7 +6,17 @@
         xmlns:local="clr-namespace:MusicianInvoiceGenerator.Views"
         mc:Ignorable="d"
         Title="InvoiceViewWindow" Height="450" Width="800"
-        Grid.IsSharedSizeScope="True">
+        Grid.IsSharedSizeScope="True"
+        SizeToContent="WidthAndHeight">
+    <Window.Resources>
+        <DataTemplate x:Key="invoiceActionCombobox">
+            <ComboBox IsReadOnly="True" IsEditable="False">
+                <Button Content="View" Command="{Binding ViewCmd}"/>
+                <Button Content="Modify" Command="{Binding ModifyCmd}"/>
+                <Button Content="Delete" Command="{Binding DeleteCmd}"/>
+            </ComboBox>
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -58,17 +68,7 @@
                         <DataGridTextColumn IsReadOnly="True" Header="Date" Binding="{Binding Path=Due, StringFormat={}{0:dd/MM/yyyy}}"/>
                         <DataGridTextColumn IsReadOnly="True" Header="Rate" Binding="{Binding Path=TotalRate, StringFormat=C, ConverterCulture='en-GB'}"/>
                         <DataGridCheckBoxColumn IsReadOnly="False" Header="Paid" Binding="{Binding Path=Paid, UpdateSourceTrigger=PropertyChanged}"/>
-                        <DataGridTemplateColumn Header="Manage" CanUserSort="False">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <ComboBox IsReadOnly="True" IsEditable="False">
-                                        <Button Content="View" Command="{Binding ViewCmd}"/>
-                                        <Button Content="Modify" Command="{Binding ModifyCmd}"/>
-                                        <Button Content="Delete" Command="{Binding DeleteCmd}"/>
-                                    </ComboBox>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Manage" CanUserSort="False" CellTemplate="{StaticResource invoiceActionCombobox}"/>
                     </DataGrid.Columns>
                     <DataGrid.RowStyle>
                         <Style TargetType="DataGridRow">
@@ -94,9 +94,9 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="1" Content="left" Command="{Binding NextPage}" CommandParameter="-1"/>
-                    <TextBlock Grid.Column="2" Text="{Binding Page}"/>
-                    <Button Grid.Column="3" Content="right" Command="{Binding NextPage}" CommandParameter="1"/>
+                    <Button Grid.Column="1" FontSize="20" Content="&lt;-" Command="{Binding NextPage}" CommandParameter="-1" Margin="5"/>
+                    <TextBlock Grid.Column="2" FontSize="20" Text="{Binding Page}" Margin="5"/>
+                    <Button Grid.Column="3" FontSize="20" Content="-&gt;" Command="{Binding NextPage}" CommandParameter="1" Margin="5"/>
                 </Grid>
             </Grid>
         </Grid>

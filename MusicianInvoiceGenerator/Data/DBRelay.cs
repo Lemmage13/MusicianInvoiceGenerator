@@ -11,9 +11,35 @@ namespace MusicianInvoiceGenerator.Data
 {
     public class DBRelay
     {
+        /// <summary>
+        /// Singleton class that handles access to the other database classes
+        /// This class ensures that database modifications are made in a logical order
+        /// </summary>
+
+        private static DBRelay instance;
+        private static readonly object threadlock = new object();
+        public static DBRelay Instance
+        {
+            get{
+                if (instance == null)
+                {
+                    lock (threadlock)
+                    {
+                        if (instance == null)
+                        {
+                            instance = new DBRelay();
+                        }
+                    }
+                }
+                return instance;
+            }
+        }
+
         private InvoiceDataAccess invoiceDataAccess;
         private ContactsDataAccess contactsDataAccess;
         private GigDataAccess gigDataAccess;
+
+        public event EventHandler DBUpdate;
 
         public DBRelay()
         {
@@ -50,6 +76,7 @@ namespace MusicianInvoiceGenerator.Data
                 gigDataAccess.AddGig(g, invoice);
             }
             Debug.WriteLine("Invoice Modified,Id: " + invoice.invoiceNo);
+            DBModified();
         }
         public void DeleteInvoice(StoredInvoice invoice)
         {
@@ -59,6 +86,7 @@ namespace MusicianInvoiceGenerator.Data
 
             if(CanDeleteContact((int)invoice.SenderContact.Id, invoice.invoiceNo)) { contactsDataAccess.DeleteEntry((int)invoice.SenderContact.Id); }
             if (CanDeleteContact((int)invoice.RecipientContact.Id, invoice.invoiceNo)) { contactsDataAccess.DeleteEntry((int)invoice.RecipientContact.Id); }
+            DBModified();
         }
         private bool CanDeleteContact(int cid, int iid)
         {
@@ -71,6 +99,10 @@ namespace MusicianInvoiceGenerator.Data
                 }
             }
             return true;
+        }
+        private void DBModified()
+        {
+            DBUpdate?.Invoke(typeof(DBRelay), EventArgs.Empty);
         }
         public List<StoredInvoice> GetInvoices(int page, int pagesize, DateTime startDate, DateTime endDate, bool? paid)
         {

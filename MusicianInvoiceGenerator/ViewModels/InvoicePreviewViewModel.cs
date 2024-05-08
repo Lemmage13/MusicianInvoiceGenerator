@@ -436,7 +436,7 @@ namespace MusicianInvoiceGenerator.ViewModels
             {
 
                 //Save invoice to database
-                new DBRelay().SaveInvoice(Invoice);
+                DBRelay.Instance.SaveInvoice(Invoice);
                 //open doc viewer window for generated invoice
                 OpenInvoiceDocViewer();
                 //close MainWindow and PreviewWindow TBA (possibly not here)
@@ -447,7 +447,7 @@ namespace MusicianInvoiceGenerator.ViewModels
         {
             if (MessageBox.Show("Are you sure all details in the invoice are correct?", "Are you sure?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-                new DBRelay().UpdateInvoice((StoredInvoice)Invoice);
+                DBRelay.Instance.UpdateInvoice((StoredInvoice)Invoice);
             }
         }
         //opens window with a docviewer so that the invoice can be seen in document format (and possibly printed to pdf)

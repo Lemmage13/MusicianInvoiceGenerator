@@ -20,7 +20,7 @@ namespace MusicianInvoiceGenerator.ViewModels
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        DBRelay dB = new DBRelay();
+        DBRelay dB = DBRelay.Instance;
 
         bool? paidFilter;
 
@@ -84,6 +84,8 @@ namespace MusicianInvoiceGenerator.ViewModels
             _startDate = new DateTime(DateTime.Now.Year, 1, 1);
             _endDate = new DateTime(DateTime.Now.Year + 1, 1, 1);
             _invoices = MakeInvoicesObservable(dB.GetInvoices(Page, pageSize, StartDate, EndDate, paidFilter));
+
+            dB.DBUpdate += UpdateInvoicesHandler;
         }
         private ICommand? _nextPage;
         public ICommand NextPage
@@ -123,6 +125,12 @@ namespace MusicianInvoiceGenerator.ViewModels
         protected void UpdateInvoices()
         {
             Invoices = MakeInvoicesObservable(dB.GetInvoices(Page,pageSize,StartDate,EndDate,paidFilter));
+        }
+        //event handler to handle invoice database change event raised by DBRelay
+        private void UpdateInvoicesHandler(object? sender, EventArgs e)
+        {
+            Debug.WriteLine("event recieved");
+            UpdateInvoices();
         }
         protected void OnPropertyChanged([CallerMemberName] string? name = null)
         {

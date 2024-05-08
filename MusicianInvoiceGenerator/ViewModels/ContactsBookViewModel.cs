@@ -21,7 +21,7 @@ namespace MusicianInvoiceGenerator.ViewModels
 
         public ContactsBookViewModel()
         {
-            List<ContactDetails> cds = new DBRelay().GetContacts(0,0,String.Empty);
+            List<ContactDetails> cds = DBRelay.Instance.GetContacts(0,0,String.Empty);
             _contacts = new ObservableCollection<ObservableContact>();
             foreach (ContactDetails c in cds)
             {

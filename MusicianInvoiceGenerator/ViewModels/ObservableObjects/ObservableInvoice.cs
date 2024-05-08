@@ -21,7 +21,7 @@ namespace MusicianInvoiceGenerator.ViewModels.ObservableObjects
     {
         //ObservableInvoice exposes invoice variables to the view layer
         //Also contains functions/commands that allow the view layer to be used by the user to interact with the database in a clear way
-        private StoredInvoice invoice;
+        public readonly StoredInvoice invoice;
         public ObservableInvoice(StoredInvoice i)
         {
             invoice = i;
@@ -144,7 +144,7 @@ namespace MusicianInvoiceGenerator.ViewModels.ObservableObjects
             Debug.WriteLine("Delete " + InvoiceNumber);
             if(MessageBox.Show("Are you sure you want to delete this invoice? It cannot be undone!", "Warning", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-                new DBRelay().DeleteInvoice(invoice);
+                DBRelay.Instance.DeleteInvoice(invoice);
             }
         }
         //opens InvoicePreviewWindow with parameters in viewmodel to disable save button
