@@ -1,11 +1,14 @@
 ﻿using MusicianInvoiceGenerator.Data;
 using MusicianInvoiceGenerator.Models;
+using MusicianInvoiceGenerator.ViewModels.Commands;
 using MusicianInvoiceGenerator.ViewModels.ObservableObjects;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
+using System.Diagnostics;
 
 namespace MusicianInvoiceGenerator.ViewModels
 {
@@ -63,16 +66,48 @@ namespace MusicianInvoiceGenerator.ViewModels
             set { _invoices = value; OnPropertyChanged(nameof(Invoices)); }
         }
 
-        int page;
+        int _page;
+        public int Page
+        {
+            get
+            {
+                return _page;
+            }
+            set { _page = value; OnPropertyChanged(nameof(Page));}
+        }
         int pageSize = 10;
 
         //default values display first 10 invoices from current year
         public InvoiceViewViewModel()
         {
-            page = 1;
+            _page = 1;
             _startDate = new DateTime(DateTime.Now.Year, 1, 1);
             _endDate = new DateTime(DateTime.Now.Year + 1, 1, 1);
-            _invoices = MakeInvoicesObservable(dB.GetInvoices(page, pageSize, StartDate, EndDate, paidFilter));
+            _invoices = MakeInvoicesObservable(dB.GetInvoices(Page, pageSize, StartDate, EndDate, paidFilter));
+        }
+        private ICommand? _nextPage;
+        public ICommand NextPage
+        {
+            get
+            {
+                if (_nextPage == null)
+                {
+                    _nextPage = new RelayCommand(param => TurnPage(Convert.ToInt32(param)), pred => CanTurnPage(Convert.ToInt32(pred)));
+                }
+                return _nextPage;
+            }
+        }
+        //Updates page to new value and updates invoices based on this
+        private void TurnPage(int n)
+        {
+            Page += n;
+            UpdateInvoices();
+        }
+        private bool CanTurnPage(int n)
+        {
+            if (Page + n <= 0) { return false; }
+            if (Invoices.Count < pageSize && n > 0) { return false; }
+            return true;
         }
         //converts StoredInvoice objects retrieved from the database to observable to expose their variables
         private ObservableCollection<ObservableInvoice> MakeInvoicesObservable(List<StoredInvoice> invoices)
@@ -87,12 +122,11 @@ namespace MusicianInvoiceGenerator.ViewModels
         //regenerates current page of invoices to update values to represent the database
         protected void UpdateInvoices()
         {
-            Invoices = MakeInvoicesObservable(dB.GetInvoices(page,pageSize,StartDate,EndDate,paidFilter));
+            Invoices = MakeInvoicesObservable(dB.GetInvoices(Page,pageSize,StartDate,EndDate,paidFilter));
         }
         protected void OnPropertyChanged([CallerMemberName] string? name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
-
     }
 }
