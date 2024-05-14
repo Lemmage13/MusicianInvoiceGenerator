@@ -108,9 +108,10 @@ namespace MusicianInvoiceGenerator.Data
         {
             return invoiceDataAccess.GetInvoices(new InvoiceViewStringBuilder(page, pagesize, startDate, endDate, paid));
         }
-        public List<ContactDetails> GetContacts(int page, int pagesize, string contains)
+        public List<ContactDetails> GetContacts(int page, int pagesize, string? contains)
         {
-            return contactsDataAccess.GetContacts();
+            ContactsViewStringBuilder builder = new ContactsViewStringBuilder(page, pagesize, contains);
+            return contactsDataAccess.GetContacts(builder);
         }
         private int SetContact(ContactDetails contact)
         {

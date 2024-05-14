@@ -12,22 +12,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using MusicianInvoiceGenerator.ViewModels.ObservableObjects;
+using System.Windows.Controls;
 
 namespace MusicianInvoiceGenerator.ViewModels
 {
-    public class ContactsBookViewModel
+    public class ContactsBookViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public ContactsBookViewModel()
         {
-            List<ContactDetails> cds = DBRelay.Instance.GetContacts(0,0,String.Empty);
-            _contacts = new ObservableCollection<ObservableContact>();
-            foreach (ContactDetails c in cds)
-            {
-                _contacts.Add(new ObservableContact(c));
-            }
+            _page = 1;
+            _contacts = MakeContactsObservable(DBRelay.Instance.GetContacts(Page, pageSize, null));
         }
+
+        private int pageSize = 10;
 
         //Event handler for key down event in textbox (intended for contacts dialogue window)
         //public void TBKeyDownHandler(object sender, KeyEventArgs e)
@@ -64,7 +63,7 @@ namespace MusicianInvoiceGenerator.ViewModels
         public ObservableCollection<ObservableContact> Contacts
         {
             get { return _contacts; }
-            set { _contacts = value; OnPropertyChanged(nameof(Contacts)); }
+            set { _contacts = value; OnPropertyChanged(nameof(Contacts));}
         }
         //Method to search and display contacts based on entered value in textbox in ContactsBook dialogue window
         private void EnterTextBox()
@@ -74,6 +73,49 @@ namespace MusicianInvoiceGenerator.ViewModels
         private void SearchContacts()
         {
             throw new NotImplementedException();
+        }
+        private void UpdateContacts()
+        {
+            Contacts = MakeContactsObservable(DBRelay.Instance.GetContacts(Page, pageSize, null));
+        }
+        private ObservableCollection<ObservableContact> MakeContactsObservable(List<ContactDetails> cds)
+        {
+            ObservableCollection<ObservableContact> oC = new ObservableCollection<ObservableContact>();
+            foreach (ContactDetails c in cds)
+            {
+                oC.Add(new ObservableContact(c));
+            }
+            return oC;
+        }
+        private int _page;
+        public int Page
+        {
+            get { return _page; }
+            set { _page = value; OnPropertyChanged(nameof(Page)); }
+        }
+        private ICommand? _nextPage;
+        public ICommand NextPage
+        {
+            get
+            {
+                if (_nextPage == null)
+                {
+                    _nextPage = new RelayCommand(param => TurnPage(Convert.ToInt32(param)), pred => CanTurnPage(Convert.ToInt32(pred)));
+                }
+                return _nextPage;
+            }
+        }
+        //Updates page to new value and updates invoices based on this
+        private void TurnPage(int n)
+        {
+            Page += n;
+            UpdateContacts();
+        }
+        private bool CanTurnPage(int n)
+        {
+            if (Page + n <= 0) { return false; }
+            if (Contacts.Count < pageSize && n > 0) { return false; }
+            return true;
         }
         protected void OnPropertyChanged([CallerMemberName] string? name = null)
         {

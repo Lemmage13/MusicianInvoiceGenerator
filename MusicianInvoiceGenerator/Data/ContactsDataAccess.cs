@@ -87,9 +87,9 @@ namespace MusicianInvoiceGenerator.Data
             }
             return cd;
         }
-        public List<ContactDetails> GetContacts()
+        public List<ContactDetails> GetContacts(ContactsViewStringBuilder builder)
         {
-            string queryString = $"SELECT * FROM {table}";
+            string queryString = $"SELECT * FROM {table}" + builder.BuildQueryParametersString();
             List<ContactDetails> cds = new List<ContactDetails>();
             Debug.WriteLine(queryString);
             using (SqlConnection connection = new SqlConnection(connectionString))
