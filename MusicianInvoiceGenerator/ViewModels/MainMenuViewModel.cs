@@ -74,5 +74,24 @@ namespace MusicianInvoiceGenerator.ViewModels
                 return _openInvoiceViewCmd;
             }
         }
+        private ICommand? _openContactsViewCmd;
+        public ICommand OpenContactsViewCmd
+        {
+            get
+            {
+                if( _openContactsViewCmd == null)
+                {
+                    _openContactsViewCmd = new RelayCommand(param => OpenContactsView());
+                }
+                return _openContactsViewCmd;
+            }
+        }
+        private void OpenContactsView()
+        {
+            ContactsBookViewModel vm = new ContactsBookViewModel();
+            ContactsView w = new ContactsView();
+            w.DataContext = vm;
+            w.Show();
+        }
     }
 }
