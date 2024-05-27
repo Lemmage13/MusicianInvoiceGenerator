@@ -25,10 +25,21 @@ namespace MusicianInvoiceGenerator.Data
 
         public string BuildQueryParametersString()
         {
-            string queryStringParameters = " ORDER BY Id " +
+            string queryStringParameters = "";
+            queryStringParameters += NameMatch();
+            queryStringParameters += " ORDER BY Id " +
                 $"OFFSET {(page - 1) * pageSize} ROWS " +
                 $"FETCH NEXT {pageSize} ROWS ONLY;";
             return queryStringParameters;
+        }
+        private string NameMatch()
+        {
+            string nms = "";
+            if (nameMatch != null)
+            {
+                nms += $" WHERE Name LIKE '%{nameMatch}%'";
+            }
+            return nms;
         }
     }
 }

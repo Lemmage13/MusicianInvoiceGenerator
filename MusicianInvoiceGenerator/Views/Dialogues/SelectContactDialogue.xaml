@@ -31,7 +31,7 @@
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Text="Search: " Margin="5"/>
-                <TextBox Grid.Column="1" Margin="5">
+                <TextBox Grid.Column="1" Margin="5" Text="{Binding SearchString, UpdateSourceTrigger=PropertyChanged}">
                     <TextBox.InputBindings>
                         <KeyBinding Command="{Binding SearchContactsCmd}" Key="Return"/>
                     </TextBox.InputBindings>
