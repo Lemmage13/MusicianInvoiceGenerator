@@ -411,7 +411,7 @@ namespace MusicianInvoiceGenerator.ViewModels
             {
                 if (_modifyInvoiceCmd == null)
                 {
-                    _modifyInvoiceCmd = new RelayCommand(param => ModifyInvoice());
+                    _modifyInvoiceCmd = new RelayCommand(param => ModifyInvoice((StoredInvoice)Invoice));
                 }
                 return _modifyInvoiceCmd;
             }
@@ -434,7 +434,6 @@ namespace MusicianInvoiceGenerator.ViewModels
         {
             if (MessageBox.Show("Are you sure all details in the invoice are correct?", "Are you sure?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-
                 //Save invoice to database
                 DBRelay.Instance.SaveInvoice(Invoice);
                 //open doc viewer window for generated invoice
@@ -443,12 +442,52 @@ namespace MusicianInvoiceGenerator.ViewModels
             }
         }
         //modifies the invoice that is being viewed - calls datarelay class to manage database modification
-        private void ModifyInvoice()
+        private void ModifyInvoice(StoredInvoice i)
         {
             if (MessageBox.Show("Are you sure all details in the invoice are correct?", "Are you sure?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-                DBRelay.Instance.UpdateInvoice((StoredInvoice)Invoice);
+                //check details for off-target effects
+                bool changeSenderId = WillChangeId(i.SenderContact, i.invoiceNo);
+                bool changeRecipientId = WillChangeId(i.RecipientContact, i.invoiceNo);
+
+                //if id is not to be changed and contact cannot be modified without off-target effects, the user should be prompted
+                if ((!changeSenderId && !DBRelay.Instance.CanDeleteContact((int)i.SenderContact.Id, i.invoiceNo)) | (!changeRecipientId && !DBRelay.Instance.CanDeleteContact((int)i.RecipientContact.Id, i.invoiceNo)))
+                {
+                    Debug.WriteLine("One Id has been modified to a non-existing contact that will have off-target effects");
+                    //ask user whether to add or modify contacts
+                    //if yes - no change
+                    //if no - both change id bools set to true
+                    switch (MessageBox.Show("Modifying these contact details will result in multiple invoices being modified. " +
+                        "Do you want to change these contacts for all invoices?",
+                        "Warning!", MessageBoxButton.YesNoCancel))
+                    {
+                        case MessageBoxResult.Yes:
+                            Debug.WriteLine("invoice modified changing multiple invoices");
+                            DBRelay.Instance.UpdateInvoice(i, changeSenderId, changeRecipientId);
+                            break;
+                        case MessageBoxResult.No:
+                            Debug.WriteLine("invoice modified changing only its own FK Ids");
+                            changeSenderId = true;
+                            changeRecipientId = true;
+                            DBRelay.Instance.UpdateInvoice(i, changeSenderId, changeRecipientId);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                else
+                {
+                    Debug.WriteLine("no off target effects detected");
+                    DBRelay.Instance.UpdateInvoice(i, changeSenderId, changeRecipientId);
+                }
             }
+        }
+        private bool WillChangeId(ContactDetails c, int iN)
+        {
+            //if entry already exists for contact details, contact id can be changed with no off-target effects
+            bool changeId = DBRelay.Instance.DoesContactExist(c);
+            Debug.WriteLine(c.Name + " change id " + changeId);
+            return changeId;
         }
         //opens window with a docviewer so that the invoice can be seen in document format (and possibly printed to pdf)
         private void OpenInvoiceDocViewer()

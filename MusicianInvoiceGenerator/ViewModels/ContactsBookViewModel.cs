@@ -36,6 +36,23 @@ namespace MusicianInvoiceGenerator.ViewModels
         //        Debug.WriteLine("Enter Pressed");
         //    }
         //}
+        private string? _searchString;
+        public string? SearchString
+        {
+            get
+            {
+                if (_searchString == String.Empty)
+                {
+                    return null;
+                }
+                return _searchString;
+            }
+            set
+            {
+                _searchString = value;
+                OnPropertyChanged(nameof(SearchString));
+            }
+        }
         private ICommand? _searchContactsCmd;
         public ICommand SearchContactsCmd
         {
@@ -43,10 +60,15 @@ namespace MusicianInvoiceGenerator.ViewModels
             {
                 if(_searchContactsCmd == null)
                 {
-                    _searchContactsCmd = new RelayCommand(param => EnterTextBox());
+                    _searchContactsCmd = new RelayCommand(param => SearchContacts());
                 }
                 return _searchContactsCmd;
             }
+        }
+        //Method to search and display contacts based on entered value in textbox in ContactsBook dialogue window
+        private void SearchContacts()
+        {
+            Contacts = MakeContactsObservable(DBRelay.Instance.GetContacts(Page, pageSize, SearchString));
         }
         private ObservableContact? _selected;
         public ObservableContact? Selected
@@ -64,15 +86,6 @@ namespace MusicianInvoiceGenerator.ViewModels
         {
             get { return _contacts; }
             set { _contacts = value; OnPropertyChanged(nameof(Contacts));}
-        }
-        //Method to search and display contacts based on entered value in textbox in ContactsBook dialogue window
-        private void EnterTextBox()
-        {
-            Debug.WriteLine("TextBox Enter Pressed");
-        }
-        private void SearchContacts()
-        {
-            throw new NotImplementedException();
         }
         private void UpdateContacts()
         {

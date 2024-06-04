@@ -62,10 +62,10 @@ namespace MusicianInvoiceGenerator.Data
             }
             Debug.WriteLine($"Invoice added, Id: {invoice.invoiceNo}");
         }
-        public void UpdateInvoice(StoredInvoice invoice)
+        public void UpdateInvoice(StoredInvoice invoice, bool changeSenderId, bool ChangeRecipientId)
         {
-            contactsDataAccess.UpdateContact((int)invoice.SenderContact.Id, invoice.SenderContact);
-            contactsDataAccess.UpdateContact((int)invoice.RecipientContact.Id, invoice.RecipientContact);
+            ModifySender(invoice, invoice.SenderContact, changeSenderId);
+            ModifyRecipient(invoice, invoice.RecipientContact, ChangeRecipientId);
 
             invoiceDataAccess.UpdateInvoice(invoice);
 
@@ -78,6 +78,36 @@ namespace MusicianInvoiceGenerator.Data
             Debug.WriteLine("Invoice Modified,Id: " + invoice.invoiceNo);
             DBModified();
         }
+        private void ModifySender(StoredInvoice i, ContactDetails cd, bool changeId)
+        {
+            if(changeId)
+            {
+                invoiceDataAccess.UpdateSenderId(i.invoiceNo, SetContact(cd));
+            }
+            else
+            {
+                contactsDataAccess.UpdateContact((int)i.SenderContact.Id, i.SenderContact);
+            }
+        }
+        private void ModifyRecipient(StoredInvoice i, ContactDetails cd, bool changeId)
+        {
+            if (changeId)
+            {
+                invoiceDataAccess.UpdateRecipientId(i.invoiceNo, SetContact(cd));
+            }
+            else
+            {
+                contactsDataAccess.UpdateContact((int)i.RecipientContact.Id, i.RecipientContact);
+            }
+        }
+        public bool DoesContactExist(ContactDetails c)
+        {
+            if(contactsDataAccess.FindContact(c) == null)
+            {
+                return false;
+            }
+            return true;
+        }
         public void DeleteInvoice(StoredInvoice invoice)
         {
             gigDataAccess.DeleteInvoiceGigs(invoice.invoiceNo);
@@ -85,10 +115,10 @@ namespace MusicianInvoiceGenerator.Data
             invoiceDataAccess.DeleteEntry(invoice.invoiceNo);
 
             if(CanDeleteContact((int)invoice.SenderContact.Id, invoice.invoiceNo)) { contactsDataAccess.DeleteEntry((int)invoice.SenderContact.Id); }
-            if (CanDeleteContact((int)invoice.RecipientContact.Id, invoice.invoiceNo)) { contactsDataAccess.DeleteEntry((int)invoice.RecipientContact.Id); }
+            if (CanDeleteContact((int)invoice.RecipientContact.Id, invoice.invoiceNo)) { contactsDataAccess.DeleteEntry((int)invoice.RecipientContact.Id); } 
             DBModified();
         }
-        private bool CanDeleteContact(int cid, int iid)
+        public bool CanDeleteContact(int cid, int iid)
         {
             List<int> ids = invoiceDataAccess.GetIdsUsingContact(cid);
             foreach (int id in ids)

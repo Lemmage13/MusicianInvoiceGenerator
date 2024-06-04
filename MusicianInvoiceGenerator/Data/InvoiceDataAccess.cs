@@ -31,6 +31,18 @@ namespace MusicianInvoiceGenerator.Data
             Debug.WriteLine(updateString);
             ExecuteNonQuery(updateString);
         }
+        public void UpdateSenderId(int invoiceId,int newId)
+        {
+            string updateString = $"UPDATE {table} SET SenderContactId = '{newId}' WHERE Id = '{invoiceId}'";
+            Debug.WriteLine(updateString);
+            ExecuteNonQuery(updateString);
+        }
+        public void UpdateRecipientId(int invoiceId, int newId)
+        {
+            string updateString = $"UPDATE {table} SET RecipientContactId = '{newId}' WHERE Id = '{invoiceId}'";
+            Debug.WriteLine(updateString);
+            ExecuteNonQuery(updateString);
+        }
         public bool InvoiceIdAvailable(int id)
         {
             string queryString = $"SELECT COUNT(*) FROM {table} WHERE Id = {id}";
