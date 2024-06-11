@@ -12,12 +12,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using MusicianInvoiceGenerator.ViewModels.ObservableObjects;
+using MusicianInvoiceGenerator.Views;
 using System.Windows.Controls;
 
 namespace MusicianInvoiceGenerator.ViewModels
 {
     public class ContactsBookViewModel : INotifyPropertyChanged
     {
+        /// <summary>
+        /// Viewmodel for controls that can display/select contacts, additional functionality can be used or ignored by views that might take it as a datacontext
+        /// </summary>
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public ContactsBookViewModel()
@@ -99,6 +103,33 @@ namespace MusicianInvoiceGenerator.ViewModels
                 oC.Add(new ObservableContact(c));
             }
             return oC;
+        }
+        private ICommand? _viewContactCommand;
+        public ICommand ViewContactCommand
+        {
+            get
+            {
+                if (_viewContactCommand == null)
+                {
+                    _viewContactCommand = new RelayCommand(param => ViewContact(), pred => ContactSelected());
+                }
+                return _viewContactCommand;
+            }
+        }
+        private void ViewContact()
+        {
+            SingleContactViewModel vm = new SingleContactViewModel(Selected.ToContact());
+            SingleContactView w = new SingleContactView();
+            w.DataContext = vm;
+            w.Show();
+        }
+        private bool ContactSelected()
+        {
+            if(Selected != null)
+            {
+                return true;
+            }
+            return false;
         }
         private int _page;
         public int Page

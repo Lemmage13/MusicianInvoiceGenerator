@@ -7,6 +7,7 @@ namespace MusicianInvoiceGenerator.ViewModels.ObservableObjects
         //ObservableContact takes a contactdetails object and exposes it for views using propertychanged calls
         public ObservableContact(ContactDetails c) 
         {
+            _id = (int)c.Id;
             _name = c.Name;
             _phoneNumber = c.PhoneNumber;
             _line1 = c.Line1;
@@ -16,7 +17,13 @@ namespace MusicianInvoiceGenerator.ViewModels.ObservableObjects
         }
         public ContactDetails ToContact()
         {
-            return new ContactDetails(Name, PhoneNumber, Line1, Line2, Town, PostCode);
+            return new ContactDetails(Id, Name, PhoneNumber, Line1, Line2, Town, PostCode);
+        }
+        private int _id;
+        public int Id
+        {
+            get { return _id; }
+            set { _id = value; OnPropertyChanged(nameof(Id)); }
         }
         private string _name;
         public string Name

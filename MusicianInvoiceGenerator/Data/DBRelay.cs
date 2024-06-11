@@ -120,7 +120,7 @@ namespace MusicianInvoiceGenerator.Data
         }
         public bool CanDeleteContact(int cid, int iid)
         {
-            List<int> ids = invoiceDataAccess.GetIdsUsingContact(cid);
+            List<int> ids = invoiceDataAccess.GetIdsUsingContact(cid, true, true);
             foreach (int id in ids)
             {
                 if(id != iid)
@@ -129,6 +129,14 @@ namespace MusicianInvoiceGenerator.Data
                 }
             }
             return true;
+        }
+        public List<int> InvoicesUsingSender(int cid)
+        {
+            return invoiceDataAccess.GetIdsUsingContact(cid, true, false);
+        }
+        public List<int> InvoicesUsingRecipient(int cid)
+        {
+            return invoiceDataAccess.GetIdsUsingContact(cid, false, true);
         }
         private void DBModified()
         {

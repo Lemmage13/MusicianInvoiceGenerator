@@ -8,6 +8,7 @@ using MusicianInvoiceGenerator.Models;
 using System.Windows.Controls;
 using System.Diagnostics;
 using System.Data;
+using Microsoft.Win32;
 
 namespace MusicianInvoiceGenerator.Data
 {
@@ -76,9 +77,25 @@ namespace MusicianInvoiceGenerator.Data
             }
             return invoices;
         }
-        public List<int> GetIdsUsingContact(int cid)
+        public List<int> GetIdsUsingContact(int cid, bool sender, bool recipient)
         {
-            string queryString = $"SELECT Id FROM {table} WHERE SenderContactId = '{cid}' OR RecipientContactId = '{cid}'";
+            string queryString = "";
+            if(!sender && !recipient)
+            {
+                throw new Exception("");
+            }
+            if (sender)
+            {
+                queryString = $"SELECT Id FROM {table} WHERE SenderContactId = '{cid}'";
+            }
+            if(recipient)
+            {
+                queryString = $"SELECT Id FROM {table} WHERE RecipientContactId = '{cid}'";
+            }
+            if(sender && recipient)
+            {
+                queryString = $"SELECT Id FROM {table} WHERE SenderContactId = '{cid}' OR RecipientContactId = '{cid}'";
+            }
             Debug.WriteLine(queryString);
             List<int> ids = new List<int>();
             using (SqlConnection connection = new SqlConnection(connectionString))

@@ -1,0 +1,63 @@
+﻿<Window x:Class="MusicianInvoiceGenerator.Views.SingleContactView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MusicianInvoiceGenerator.Views"
+        mc:Ignorable="d"
+        Title="SingleContactView" Height="450" Width="800"
+        SizeToContent="WidthAndHeight">
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Text="Name"/>
+            <TextBlock Grid.Row="1" Text="Phone Number"/>
+            <TextBlock Grid.Row="2" Text="Address"/>
+            <TextBlock Grid.Row="3" Text="Line 1"/>
+            <TextBlock Grid.Row="4" Text="Line 2"/>
+            <TextBlock Grid.Row="5" Text="Town"/>
+            <TextBlock Grid.Row="6" Text="Post Code"/>
+            <TextBlock Grid.Row="7" Text="Invoices as recipient"/>
+            <TextBlock Grid.Row="8" Text="Invoices as sender"/>
+            
+            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Contact.Name}"/>
+            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Contact.PhoneNumber}"/>
+            
+            <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding Contact.Line1}"/>
+            <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding Contact.Line2}"/>
+            <TextBlock Grid.Column="1" Grid.Row="5" Text="{Binding Contact.Town}"/>
+            <TextBlock Grid.Column="1" Grid.Row="6" Text="{Binding Contact.PostCode}"/>
+            <TextBlock Grid.Column="1" Grid.Row="7" Text="{Binding RecipientNum}"/>
+            <TextBlock Grid.Column="1" Grid.Row="8" Text="{Binding SenderNum}"/>
+        </Grid>
+    </Grid>
+</Window>
