@@ -78,6 +78,10 @@ namespace MusicianInvoiceGenerator.Data
             Debug.WriteLine("Invoice Modified,Id: " + invoice.invoiceNo);
             DBModified();
         }
+        public void ModifyContact(int id, ContactDetails c)
+        {
+            contactsDataAccess.UpdateContact(id, c);
+        }
         private void ModifySender(StoredInvoice i, ContactDetails cd, bool changeId)
         {
             if(changeId)

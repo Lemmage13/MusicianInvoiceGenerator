@@ -123,6 +123,25 @@ namespace MusicianInvoiceGenerator.ViewModels
             w.DataContext = vm;
             w.Show();
         }
+        private ICommand? _modifyContact;
+        public ICommand? ModifyContactCommand
+        {
+            get
+            {
+                if(_modifyContact == null)
+                {
+                    _modifyContact = new RelayCommand(param => ModifyContact());
+                }
+                return _modifyContact;
+            }
+        }
+        private void ModifyContact()
+        {
+            SingleContactViewModel vm = new SingleContactViewModel(Selected.ToContact());
+            ModifyContactView w = new ModifyContactView();
+            w.DataContext = vm;
+            w.Show();
+        }
         private bool ContactSelected()
         {
             if(Selected != null)
@@ -149,7 +168,7 @@ namespace MusicianInvoiceGenerator.ViewModels
                 return _nextPage;
             }
         }
-        //Updates page to new value and updates invoices based on this
+        //Updates page to new value and updates contacts based on this
         private void TurnPage(int n)
         {
             Page += n;

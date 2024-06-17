@@ -65,7 +65,7 @@
             <TextBlock Grid.Column="0"  Text="Selected:" Margin="5"/>
             <TextBlock Grid.Column="1" Text="{Binding Selected.Name}" Background="White" Margin="5"/>
             <Button Name="ViewBtn" Grid.Column="2" Content="View" Command="{Binding ViewContactCommand}" Margin="5"/>
-            <Button Name="AcceptBtn" Grid.Column="3" Content="Modify" Margin="5"/>
+            <Button Name="ModifyBtn" Grid.Column="3" Content="Modify" Command="{Binding ModifyContactCommand}" Margin="5"/>
         </Grid>
     </Grid>
 </Window>

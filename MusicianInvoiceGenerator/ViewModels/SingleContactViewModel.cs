@@ -1,5 +1,6 @@
 ﻿using MusicianInvoiceGenerator.Data;
 using MusicianInvoiceGenerator.Models;
+using MusicianInvoiceGenerator.ViewModels.Commands;
 using MusicianInvoiceGenerator.ViewModels.ObservableObjects;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,8 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 
 namespace MusicianInvoiceGenerator.ViewModels
 {
@@ -44,6 +47,25 @@ namespace MusicianInvoiceGenerator.ViewModels
         protected void OnPropertyChanged([CallerMemberName] string? name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+        private ICommand? _modifyContactCmd;
+        public ICommand ModifyContactCmd
+        {
+            get 
+            {
+                if (_modifyContactCmd == null)
+                {
+                    _modifyContactCmd = new RelayCommand(param => ModifyContact());
+                }
+                return _modifyContactCmd;
+            }
+        }
+        public void ModifyContact()
+        {
+            if(MessageBox.Show("Modifying contact details can affect multiple invoices, are you sure this is what you want?", "WARNING", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                DBRelay.Instance.ModifyContact(Contact.Id, Contact.ToContact());
+            }
         }
     }
 }
